@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ToddlerTiles</string>
+    <string name="start_button">Start</string>
+    <string name="score">Score: </string>
+    <string name="time_taken">Time Taken: </string>
+    <string name="end_game_button">End Game</string>
 </resources>
