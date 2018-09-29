@@ -2,66 +2,49 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@mipmap/tile_game_wallpaper"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/game_background2"
+    android:orientation="vertical"
     tools:context="com.example.pooja.toddlertiles.TileGame">
 
 
-
-
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-    <TextView
-        android:id="@+id/time_taken_textview"
-        android:padding="15dp"
-        android:textAllCaps="true"
-        android:textSize="20sp"
-        android:fontFamily="cursive"
-        android:textStyle="bold"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_border2"
-        android:textColor="#ffffff"
-        android:text="@string/time_taken"
-        android:layout_gravity="center"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="30dp"
         android:layout_marginTop="30dp"
-        android:layout_marginEnd="40dp"
-        android:visibility="gone"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal">
 
+        <Chronometer
+            android:id="@+id/timer"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/button_border2"
+            android:textSize="30sp"
+            android:fontFamily="casual"
+            android:textColor="#ffffff"
+            android:gravity="center"
+            android:visibility="gone"/>
 
-
-        />
-
-    <TextView
-        android:id="@+id/score_textview"
-        android:padding="15dp"
-        android:textAllCaps="true"
-        android:textSize="20sp"
-        android:fontFamily="cursive"
-        android:textStyle="bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_border2"
-        android:textColor="#ffffff"
-        android:text="@string/score"
-        android:layout_gravity="center"
-        android:layout_marginBottom="30dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="20dp"
-        android:visibility="gone"
-
-
-
-        />
+        <TextView
+            android:id="@+id/score_textview"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginLeft="60dp"
+            android:gravity="center"
+            android:background="@drawable/button_border2"
+            android:fontFamily="casual"
+            android:text="@string/score"
+            android:textAllCaps="false"
+            android:textColor="#ffffff"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
 
     </LinearLayout>
-
 
 
     <LinearLayout
@@ -69,36 +52,27 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center">
 
-    <ImageButton
-        android:id="@+id/tile1"
-        android:layout_margin="10dp"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:src="@mipmap/baby_tile"
-        android:scaleType="centerCrop"
-        android:background="@drawable/roundcorner"
-        android:padding="10dp"
-        android:visibility="gone"
+        <ImageButton
+            android:id="@+id/tile1"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/roundcorner"
+            android:padding="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/baby_tile"
+            android:visibility="gone" />
 
-
-
-        />
-
-    <ImageButton
-        android:id="@+id/tile2"
-        android:layout_margin="10dp"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:src="@mipmap/baby_tile"
-        android:scaleType="centerCrop"
-        android:background="@drawable/roundcorner"
-        android:padding="10dp"
-        android:visibility="gone"
-
-
-
-
-        />
+        <ImageButton
+            android:id="@+id/tile2"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/roundcorner"
+            android:padding="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/baby_tile"
+            android:visibility="gone" />
 
     </LinearLayout>
 
@@ -107,37 +81,29 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center">
 
-    <ImageButton
-        android:id="@+id/tile3"
-        android:layout_margin="10dp"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:src="@mipmap/baby_tile"
-        android:scaleType="centerCrop"
-        android:background="@drawable/roundcorner"
-        android:padding="10dp"
-        android:visibility="gone"
+        <ImageButton
+            android:id="@+id/tile3"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/roundcorner"
+            android:padding="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/baby_tile"
+            android:visibility="gone" />
 
+        <ImageButton
+            android:id="@+id/tile4"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/roundcorner"
+            android:padding="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/baby_tile"
+            android:visibility="gone" />
 
-
-        />
-
-    <ImageButton
-        android:id="@+id/tile4"
-        android:layout_margin="10dp"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:src="@mipmap/baby_tile"
-        android:scaleType="centerCrop"
-        android:background="@drawable/roundcorner"
-        android:padding="10dp"
-        android:visibility="gone"
-
-
-
-        />
-
-        </LinearLayout>
+    </LinearLayout>
 
 
     <LinearLayout
@@ -147,33 +113,25 @@
 
         <ImageButton
             android:id="@+id/tile5"
-            android:layout_margin="10dp"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@mipmap/baby_tile"
-            android:scaleType="centerCrop"
+            android:layout_margin="10dp"
             android:background="@drawable/roundcorner"
             android:padding="10dp"
-            android:visibility="gone"
-
-
-
-            />
+            android:scaleType="centerCrop"
+            android:src="@drawable/baby_tile"
+            android:visibility="gone" />
 
         <ImageButton
             android:id="@+id/tile6"
-            android:layout_margin="10dp"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@mipmap/baby_tile"
-            android:scaleType="centerCrop"
+            android:layout_margin="10dp"
             android:background="@drawable/roundcorner"
             android:padding="10dp"
-            android:visibility="gone"
-
-
-
-            />
+            android:scaleType="centerCrop"
+            android:src="@drawable/baby_tile"
+            android:visibility="gone" />
 
     </LinearLayout>
 
@@ -182,21 +140,17 @@
         android:id="@+id/end_game_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/end_game_button"
-        android:background="@drawable/button_border2"
-        android:textColor="#ffffff"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
+        android:background="@drawable/button_border2"
+        android:fontFamily="casual"
         android:padding="15dp"
-        android:textSize="20sp"
-        android:fontFamily="cursive"
+        android:text="@string/end_game_button"
+        android:textColor="#ffffff"
+        android:textSize="30sp"
         android:textStyle="bold"
-        android:visibility="gone"
-
-
-
-
-        />
+        android:textAllCaps="false"
+        android:visibility="gone" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -208,14 +162,13 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:background="@drawable/button_border"
-            android:fontFamily="cursive"
-            android:padding="25dp"
+            android:fontFamily="casual"
+            android:padding="40dp"
             android:text="@string/start_button"
             android:textColor="#ffffff"
             android:textSize="50sp"
             android:textStyle="bold"
-
-            />
+            android:textAllCaps="false"/>
 
     </RelativeLayout>
 

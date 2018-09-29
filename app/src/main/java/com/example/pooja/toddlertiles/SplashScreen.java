@@ -24,7 +24,7 @@ public class SplashScreen extends AppCompatActivity {
         Image_toddler_tiles.startAnimation(myanim);
 
 
-        final Intent intent = new Intent(this, TileGame.class);
+        final Intent intent = new Intent(this, PromptTechnique.class);
         Thread timer = new Thread(){
 
             public void run(){

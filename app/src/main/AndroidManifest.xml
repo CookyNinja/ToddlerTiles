@@ -4,11 +4,14 @@
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
+        android:largeHeap="true"
         android:icon="@mipmap/icon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/icon"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+>
         <activity
             android:name=".SplashScreen"
             android:configChanges="orientation"
@@ -22,6 +25,7 @@
         </activity>
         <activity android:name=".PromptTechnique" />
         <activity android:name=".TileGame"></activity>
+        <activity android:name=".Scoreboard" />
     </application>
 
 </manifest>

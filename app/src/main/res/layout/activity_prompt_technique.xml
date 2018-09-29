@@ -1,9 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.pooja.toddlertiles.PromptTechnique">
+    tools:context="com.example.pooja.toddlertiles.PromptTechnique"
+    android:orientation="vertical"
+    android:background="@drawable/promptbackground">
 
-</android.support.constraint.ConstraintLayout>
+    <Button
+        android:id="@+id/b1"
+        android:onClick="pressButton"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Video Demo"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="50dp"
+        android:background="#fdb2c7"
+        android:typeface="serif"
+        android:soundEffectsEnabled="true"/>
+    <Button
+        android:id="@+id/b2"
+        android:onClick="pressButton"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Text Instructions at the start"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="#fdb2c7"
+        android:typeface="serif"
+        android:soundEffectsEnabled="true"/>
+    <Button
+        android:id="@+id/b3"
+        android:onClick="pressButton"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Text Instructions on the fly"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="#fdb2c7"
+        android:typeface="serif"
+        android:soundEffectsEnabled="true"/>
+    <Button
+        android:id="@+id/b4"
+        android:onClick="pressButton"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Audio Instructions on the fly"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="#fdb2c7"
+        android:typeface="serif"
+        android:soundEffectsEnabled="true"/>
+    <Button
+        android:id="@+id/b5"
+        android:onClick="pressButton"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Hand Gestures on the fly"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="50dp"
+        android:background="#fdb2c7"
+        android:typeface="serif"
+        android:soundEffectsEnabled="true"/>
+
+</LinearLayout>
