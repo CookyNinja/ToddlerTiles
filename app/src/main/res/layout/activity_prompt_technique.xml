@@ -10,7 +10,6 @@
 
     <Button
         android:id="@+id/b1"
-        android:onClick="pressButton"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="Video Demo"
@@ -23,7 +22,6 @@
         android:soundEffectsEnabled="true"/>
     <Button
         android:id="@+id/b2"
-        android:onClick="pressButton"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="Text Instructions at the start"
@@ -35,7 +33,6 @@
         android:soundEffectsEnabled="true"/>
     <Button
         android:id="@+id/b3"
-        android:onClick="pressButton"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="Text Instructions on the fly"
@@ -47,7 +44,6 @@
         android:soundEffectsEnabled="true"/>
     <Button
         android:id="@+id/b4"
-        android:onClick="pressButton"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="Audio Instructions on the fly"
@@ -59,7 +55,6 @@
         android:soundEffectsEnabled="true"/>
     <Button
         android:id="@+id/b5"
-        android:onClick="pressButton"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="Hand Gestures on the fly"

@@ -8,6 +8,32 @@
     android:orientation="vertical"
     tools:context="com.example.pooja.toddlertiles.TileGame">
 
+    <LinearLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:background="#80eeb9a7"
+        android:padding="10dp"
+        android:id="@+id/instruction_switch">
+
+        <TextView
+            android:id="@+id/instruction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Instructions"
+            android:textSize="23sp"
+            android:textColor="#ffffff"/>
+        <Switch
+            android:id="@+id/toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:thumbTint="#e51455"/>
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="wrap_content"

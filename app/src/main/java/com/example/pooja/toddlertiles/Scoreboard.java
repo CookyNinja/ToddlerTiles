@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.StringDef;
@@ -19,6 +20,8 @@ public class Scoreboard extends AppCompatActivity {
     private Button play_again_button;
     private TextView scorebox, timebox, messagebox, time_message, score_message;
 
+    private MediaPlayer mediaPlayer = null;
+
     private int score;
     private String time;
 
@@ -32,6 +35,9 @@ public class Scoreboard extends AppCompatActivity {
 
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#049da0"));
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
+
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.taponplayagainbutton);
+        mediaPlayer.start();
 
         scorebox = (TextView) findViewById(R.id.scorebox);
         timebox = (TextView) findViewById(R.id.timebox);
@@ -64,6 +70,12 @@ public class Scoreboard extends AppCompatActivity {
         play_again_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(mediaPlayer.isPlaying()){
+                    mediaPlayer.stop();
+                }
+                mediaPlayer.release();
+
                 Intent intent = new Intent(getApplicationContext(), TileGame.class);
                 startActivity(intent);
                 finish();

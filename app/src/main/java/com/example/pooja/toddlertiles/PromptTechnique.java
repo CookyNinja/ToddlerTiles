@@ -16,6 +16,9 @@ import android.widget.Toast;
 
 public class PromptTechnique extends AppCompatActivity {
 
+    private int promptTechnique;
+    private Button b1, b2, b3, b4, b5;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,11 +28,63 @@ public class PromptTechnique extends AppCompatActivity {
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#f47485"));
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
 
+        b1 = findViewById(R.id.b1);
+        b2 = findViewById(R.id.b2);
+        b3 = findViewById(R.id.b3);
+        b4 = findViewById(R.id.b4);
+        b5 = findViewById(R.id.b5);
+
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                promptTechnique = 1;
+                pressButton(b1);
+            }
+        });
+
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                promptTechnique = 2;
+                pressButton(b2);
+            }
+        });
+
+        b3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                promptTechnique = 3;
+                pressButton(b3);
+            }
+        });
+
+        b4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                promptTechnique = 4;
+                pressButton(b4);
+            }
+        });
+
+        b5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                promptTechnique = 5;
+                pressButton(b5);
+            }
+        });
+
     }
 
     public void pressButton(View view){
         view.setBackgroundColor(Color.rgb(255, 201, 216));
         Intent intent = new Intent(this, TileGame.class);
+        intent.putExtra("promptTechnique", promptTechnique);
         startActivity(intent);
+        finish();
     }
+
+
+
+
 }
