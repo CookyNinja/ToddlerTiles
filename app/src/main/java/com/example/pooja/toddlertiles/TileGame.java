@@ -2,6 +2,7 @@ package com.example.pooja.toddlertiles;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -9,6 +10,7 @@ import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.annotation.IntegerRes;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -49,9 +51,13 @@ public class TileGame extends AppCompatActivity {
     private long seconds;
     private int clickNumber = 0;
 
-    private static int promptTechnique;
-    private boolean isToggleChecked = false;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
+
+    private boolean isToggleChecked ;
     private MediaPlayer mediaPlayer = null;
+    private  int promptTechnique;
 
     Handler mHandler;
 
@@ -75,9 +81,9 @@ public class TileGame extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
 
-        savedInstanceState.putInt("promptTechnique", promptTechnique);
+        //savedInstanceState.putInt("promptTechnique", promptTechnique);
         super.onSaveInstanceState(savedInstanceState);
-        Toast.makeText(getApplicationContext(), "OnSaveInstanceState called", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "OnSaveInstanceState called", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -95,6 +101,15 @@ public class TileGame extends AppCompatActivity {
         mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.taponstart);
         mediaPlayer.start();
 
+        //sharedPreference for promptTechnique variable and toggle button
+        sharedPreferences = getApplicationContext().getSharedPreferences("SharedPreference1" , MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
+
+
+        //if nothing stored, then returns default value 2, i.e. text instructions at the start
+        promptTechnique = sharedPreferences.getInt("promptTechnique" , 2) ;
+
         start_button = findViewById(R.id.start_button);
         instruction = findViewById(R.id.instruction);
         toggle = findViewById(R.id.toggle);
@@ -104,13 +119,13 @@ public class TileGame extends AppCompatActivity {
         end_game_button = findViewById(R.id.end_game_button);
         timer = findViewById(R.id.timer);
 
-        if(savedInstanceState != null) {
+        /*if(savedInstanceState != null) {
             promptTechnique = savedInstanceState.getInt("promptTechnique");
             Toast.makeText(getApplicationContext(), "savedInstance", Toast.LENGTH_SHORT).show();
         }else{
             promptTechnique = getIntent().getIntExtra("promptTechnique", 1);
             Toast.makeText(getApplicationContext(), "intentValue", Toast.LENGTH_SHORT).show();
-        }
+        }*/
 
         Typeface face = Typeface.createFromAsset(getAssets(),
                 "fonts/MouseMemoirs-Regular.ttf");
@@ -134,14 +149,26 @@ public class TileGame extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    isToggleChecked = true;
-                    Toast.makeText(getApplicationContext(), "Instructions ON", Toast.LENGTH_SHORT).show();
+                    //isToggleChecked = true;
+                    editor.putBoolean("toggleButton" , true);
+                    editor.commit();
+                    isToggleChecked = sharedPreferences.getBoolean("toggleButton" , true);
+                    //Toast.makeText(getApplicationContext(), "Instructions ON", Toast.LENGTH_SHORT).show();
                 } else {
-                    isToggleChecked = false;
-                    Toast.makeText(getApplicationContext(), "Instructions OFF", Toast.LENGTH_SHORT).show();
+                    //isToggleChecked = false;
+                    editor.putBoolean("toggleButton" , false);
+                    editor.commit();
+                    isToggleChecked = sharedPreferences.getBoolean("toggleButton" , false);
+                    //Toast.makeText(getApplicationContext(), "Instructions OFF", Toast.LENGTH_SHORT).show();
                 }
             }
+
+
         });
+
+
+        toggle.setChecked(sharedPreferences.getBoolean("toggleButton" , false));
+
 
         start_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,6 +176,8 @@ public class TileGame extends AppCompatActivity {
                     if(mediaPlayer.isPlaying()){
                         mediaPlayer.stop();
                     }
+
+                    Log.d("Prompt_technique = " , promptTechnique + " ");
 
                 instruction_switch.setVisibility(View.GONE);
                 start_button.setVisibility(View.GONE);
@@ -172,12 +201,39 @@ public class TileGame extends AppCompatActivity {
                             mediaPlayer.start();
                             break;
                         }
+                        case 2:{
+
+                            //displays the dialog box of instructions
+                            AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
+                            View mView = getLayoutInflater().inflate(R.layout.dialog_instructions, null);
+
+                            Button close_button = mView.findViewById(R.id.close_button);
+                            mBuilder.setView(mView);
+                            final AlertDialog dialog = mBuilder.create();
+                            dialog.show();
+
+                            close_button.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+
+                                    //close the dialog box
+                                    dialog.dismiss();
+
+                                }
+                            });
+
+                        }
+
+
                     }
                 }
 
-                timer.setBase(SystemClock.elapsedRealtime());
-                timer.start();
-                isTimerRunning = true;
+
+                else {
+                    timer.setBase(SystemClock.elapsedRealtime());
+                    timer.start();
+                    isTimerRunning = true;
+                }
             }
         });
 

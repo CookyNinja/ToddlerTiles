@@ -12,7 +12,7 @@
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_gravity="center"
         android:gravity="center"
         android:background="#80eeb9a7"
@@ -23,6 +23,7 @@
             android:id="@+id/instruction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:text="Instructions"
             android:textSize="23sp"
             android:textColor="#ffffff"/>
@@ -189,7 +190,7 @@
             android:layout_centerInParent="true"
             android:background="@drawable/button_border"
             android:fontFamily="casual"
-            android:padding="40dp"
+            android:padding="30dp"
             android:text="@string/start_button"
             android:textColor="#ffffff"
             android:textSize="50sp"

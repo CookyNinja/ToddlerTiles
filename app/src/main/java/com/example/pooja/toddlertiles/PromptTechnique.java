@@ -2,6 +2,7 @@ package com.example.pooja.toddlertiles;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.content.ContextCompat;
@@ -16,7 +17,10 @@ import android.widget.Toast;
 
 public class PromptTechnique extends AppCompatActivity {
 
-    private int promptTechnique;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
+    //private int promptTechnique;
     private Button b1, b2, b3, b4, b5;
 
     @Override
@@ -34,10 +38,16 @@ public class PromptTechnique extends AppCompatActivity {
         b4 = findViewById(R.id.b4);
         b5 = findViewById(R.id.b5);
 
+        //creating sharedpreference for PromptTechnique Variable
+        sharedPreferences = getApplicationContext().getSharedPreferences("SharedPreference1" , MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                promptTechnique = 1;
+                editor.putInt("promptTechnique", 1); //saving 1 in promptTechnique
+                editor.commit(); //saving changes to sharedPreference
+                //promptTechnique = 1;
                 pressButton(b1);
             }
         });
@@ -45,7 +55,9 @@ public class PromptTechnique extends AppCompatActivity {
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                promptTechnique = 2;
+                //promptTechnique = 2;
+                editor.putInt("promptTechnique" , 2);
+                editor.commit();
                 pressButton(b2);
             }
         });
@@ -53,7 +65,9 @@ public class PromptTechnique extends AppCompatActivity {
         b3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                promptTechnique = 3;
+                //promptTechnique = 3;
+                editor.putInt("promptTechnique" , 3);
+                editor.commit();
                 pressButton(b3);
             }
         });
@@ -61,7 +75,9 @@ public class PromptTechnique extends AppCompatActivity {
         b4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                promptTechnique = 4;
+                //promptTechnique = 4;
+                editor.putInt("promptTechnique" , 4);
+                editor.commit();
                 pressButton(b4);
             }
         });
@@ -69,7 +85,9 @@ public class PromptTechnique extends AppCompatActivity {
         b5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                promptTechnique = 5;
+                //promptTechnique = 5;
+                editor.putInt("promptTechnique" , 5);
+                editor.commit();
                 pressButton(b5);
             }
         });
@@ -79,7 +97,8 @@ public class PromptTechnique extends AppCompatActivity {
     public void pressButton(View view){
         view.setBackgroundColor(Color.rgb(255, 201, 216));
         Intent intent = new Intent(this, TileGame.class);
-        intent.putExtra("promptTechnique", promptTechnique);
+        //if nothing stored, then returns default value 2, i.e. text instructions at the start
+        //intent.putExtra("promptTechnique", sharedPreferences.getInt("promptTechnique" , 2));
         startActivity(intent);
         finish();
     }
