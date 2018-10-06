@@ -232,6 +232,32 @@ public class TileGame extends AppCompatActivity {
                                 }
                             });
 
+                            break;
+
+                        }
+
+                        case 3:{
+
+                            final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
+                            View mView = getLayoutInflater().inflate(R.layout.instruction_one, null);
+
+                            mBuilder.setView(mView);
+                            final AlertDialog dialog = mBuilder.create();
+                            dialog.show();
+
+                            final Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    dialog.dismiss();
+                                    //timer starts now
+                                    timer.setBase(SystemClock.elapsedRealtime());
+                                    timer.start();
+                                    isTimerRunning = true;
+                                }
+                            }, 3000);
+
+                            break;
                         }
 
 
@@ -335,6 +361,30 @@ public class TileGame extends AppCompatActivity {
 
                             break;
                         }
+                        case 3:{
+
+                            if(clickNumber == 0) {
+                                final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
+                                View mView = getLayoutInflater().inflate(R.layout.instruction_two, null);
+
+                                mBuilder.setView(mView);
+                                final AlertDialog dialog = mBuilder.create();
+                                dialog.show();
+
+                                final Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        dialog.dismiss();
+
+                                    }
+                                }, 3000);
+
+                                clickNumber++;
+                            }
+                            break;
+                        }
+
                     }
                 }
 
@@ -379,6 +429,28 @@ public class TileGame extends AppCompatActivity {
                                                         clickNumber++;
                                                         break;
                                                     }
+                                                    case 3:{
+
+                                                        final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
+                                                        View mView = getLayoutInflater().inflate(R.layout.instruction_three, null);
+
+                                                        mBuilder.setView(mView);
+                                                        final AlertDialog dialog = mBuilder.create();
+                                                        dialog.show();
+
+                                                        final Handler handler = new Handler();
+                                                        handler.postDelayed(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                dialog.dismiss();
+
+                                                            }
+                                                        }, 3000);
+
+                                                        clickNumber++;
+                                                        break;
+
+                                                    }
                                                 }
                                             }
                                             else if(scoreCount == 3){
@@ -397,6 +469,27 @@ public class TileGame extends AppCompatActivity {
                                                             mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.tapendgamebutton);
                                                             mediaPlayer.start();
                                                             break;
+                                                        }
+                                                        case 3:{
+
+                                                            final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
+                                                            View mView = getLayoutInflater().inflate(R.layout.instruction_four, null);
+
+                                                            mBuilder.setView(mView);
+                                                            final AlertDialog dialog = mBuilder.create();
+                                                            dialog.show();
+
+                                                            final Handler handler = new Handler();
+                                                            handler.postDelayed(new Runnable() {
+                                                                @Override
+                                                                public void run() {
+                                                                    dialog.dismiss();
+
+                                                                }
+                                                            }, 3000);
+
+                                                            break;
+
                                                         }
                                                     }
                                                 }
@@ -455,6 +548,30 @@ public class TileGame extends AppCompatActivity {
 
                             break;
                         }
+                        case 3:{
+
+                            if(clickNumber == 0) {
+                                final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
+                                View mView = getLayoutInflater().inflate(R.layout.instruction_two, null);
+
+                                mBuilder.setView(mView);
+                                final AlertDialog dialog = mBuilder.create();
+                                dialog.show();
+
+                                final Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        dialog.dismiss();
+
+                                    }
+                                }, 3000);
+
+                                clickNumber++;
+                            }
+                            break;
+                        }
+
                     }
                 }
 
@@ -498,6 +615,29 @@ public class TileGame extends AppCompatActivity {
                                                         clickNumber++;
                                                         break;
                                                     }
+                                                    case 3:{
+
+                                                        final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
+                                                        View mView = getLayoutInflater().inflate(R.layout.instruction_three, null);
+
+                                                        mBuilder.setView(mView);
+                                                        final AlertDialog dialog = mBuilder.create();
+                                                        dialog.show();
+
+                                                        final Handler handler = new Handler();
+                                                        handler.postDelayed(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                dialog.dismiss();
+
+                                                            }
+                                                        }, 3000);
+
+                                                        clickNumber++;
+
+                                                        break;
+
+                                                    }
                                                 }
                                             }
                                             else if(scoreCount == 3){
@@ -516,6 +656,28 @@ public class TileGame extends AppCompatActivity {
                                                             mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.tapendgamebutton);
                                                             mediaPlayer.start();
                                                             break;
+                                                        }
+
+                                                        case  3:{
+
+                                                            final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
+                                                            View mView = getLayoutInflater().inflate(R.layout.instruction_four, null);
+
+                                                            mBuilder.setView(mView);
+                                                            final AlertDialog dialog = mBuilder.create();
+                                                            dialog.show();
+
+                                                            final Handler handler = new Handler();
+                                                            handler.postDelayed(new Runnable() {
+                                                                @Override
+                                                                public void run() {
+                                                                    dialog.dismiss();
+
+                                                                }
+                                                            }, 3000);
+
+                                                            break;
+
                                                         }
                                                     }
                                                 }
@@ -582,6 +744,30 @@ public class TileGame extends AppCompatActivity {
 
                             break;
                         }
+                        case 3:{
+
+                            if(clickNumber == 0) {
+                                final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
+                                View mView = getLayoutInflater().inflate(R.layout.instruction_two, null);
+
+                                mBuilder.setView(mView);
+                                final AlertDialog dialog = mBuilder.create();
+                                dialog.show();
+
+                                final Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        dialog.dismiss();
+
+                                    }
+                                }, 3000);
+
+                                clickNumber++;
+                            }
+                            break;
+                        }
+
                     }
                 }
 
@@ -625,6 +811,28 @@ public class TileGame extends AppCompatActivity {
                                                         clickNumber++;
                                                         break;
                                                     }
+                                                    case 3:{
+
+                                                        final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
+                                                        View mView = getLayoutInflater().inflate(R.layout.instruction_three, null);
+
+                                                        mBuilder.setView(mView);
+                                                        final AlertDialog dialog = mBuilder.create();
+                                                        dialog.show();
+
+                                                        final Handler handler = new Handler();
+                                                        handler.postDelayed(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                dialog.dismiss();
+
+                                                            }
+                                                        }, 3000);
+
+                                                        clickNumber++;
+                                                        break;
+
+                                                    }
                                                 }
                                             }
                                             else if(scoreCount == 3){
@@ -643,6 +851,27 @@ public class TileGame extends AppCompatActivity {
                                                             mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.tapendgamebutton);
                                                             mediaPlayer.start();
                                                             break;
+                                                        }
+                                                        case  3:{
+
+                                                            final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
+                                                            View mView = getLayoutInflater().inflate(R.layout.instruction_four, null);
+
+                                                            mBuilder.setView(mView);
+                                                            final AlertDialog dialog = mBuilder.create();
+                                                            dialog.show();
+
+                                                            final Handler handler = new Handler();
+                                                            handler.postDelayed(new Runnable() {
+                                                                @Override
+                                                                public void run() {
+                                                                    dialog.dismiss();
+
+                                                                }
+                                                            }, 3000);
+
+                                                            break;
+
                                                         }
                                                     }
                                                 }
@@ -701,6 +930,30 @@ public class TileGame extends AppCompatActivity {
 
                             break;
                         }
+                        case 3:{
+
+                            if(clickNumber == 0) {
+                                final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
+                                View mView = getLayoutInflater().inflate(R.layout.instruction_two, null);
+
+                                mBuilder.setView(mView);
+                                final AlertDialog dialog = mBuilder.create();
+                                dialog.show();
+
+                                final Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        dialog.dismiss();
+
+                                    }
+                                }, 3000);
+
+                                clickNumber++;
+                            }
+                            break;
+                        }
+
                     }
                 }
 
@@ -744,6 +997,28 @@ public class TileGame extends AppCompatActivity {
                                                         clickNumber++;
                                                         break;
                                                     }
+                                                    case 3:{
+
+                                                        final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
+                                                        View mView = getLayoutInflater().inflate(R.layout.instruction_three, null);
+
+                                                        mBuilder.setView(mView);
+                                                        final AlertDialog dialog = mBuilder.create();
+                                                        dialog.show();
+
+                                                        final Handler handler = new Handler();
+                                                        handler.postDelayed(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                dialog.dismiss();
+
+                                                            }
+                                                        }, 3000);
+
+                                                        clickNumber++;
+                                                        break;
+
+                                                    }
                                                 }
                                             }
                                             else if(scoreCount == 3){
@@ -762,6 +1037,28 @@ public class TileGame extends AppCompatActivity {
                                                             mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.tapendgamebutton);
                                                             mediaPlayer.start();
                                                             break;
+                                                        }
+
+                                                        case  3:{
+
+                                                            final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
+                                                            View mView = getLayoutInflater().inflate(R.layout.instruction_four, null);
+
+                                                            mBuilder.setView(mView);
+                                                            final AlertDialog dialog = mBuilder.create();
+                                                            dialog.show();
+
+                                                            final Handler handler = new Handler();
+                                                            handler.postDelayed(new Runnable() {
+                                                                @Override
+                                                                public void run() {
+                                                                    dialog.dismiss();
+
+                                                                }
+                                                            }, 3000);
+
+                                                            break;
+
                                                         }
                                                     }
                                                 }
@@ -829,6 +1126,30 @@ public class TileGame extends AppCompatActivity {
 
                             break;
                         }
+                        case 3:{
+
+                            if(clickNumber == 0) {
+                                final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
+                                View mView = getLayoutInflater().inflate(R.layout.instruction_two, null);
+
+                                mBuilder.setView(mView);
+                                final AlertDialog dialog = mBuilder.create();
+                                dialog.show();
+
+                                final Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        dialog.dismiss();
+
+                                    }
+                                }, 3000);
+
+                                clickNumber++;
+                            }
+                            break;
+                        }
+
                     }
                 }
 
@@ -872,6 +1193,28 @@ public class TileGame extends AppCompatActivity {
                                                         clickNumber++;
                                                         break;
                                                     }
+                                                    case 3:{
+
+                                                        final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
+                                                        View mView = getLayoutInflater().inflate(R.layout.instruction_three, null);
+
+                                                        mBuilder.setView(mView);
+                                                        final AlertDialog dialog = mBuilder.create();
+                                                        dialog.show();
+
+                                                        final Handler handler = new Handler();
+                                                        handler.postDelayed(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                dialog.dismiss();
+
+                                                            }
+                                                        }, 3000);
+
+                                                        clickNumber++;
+                                                        break;
+
+                                                    }
                                                 }
                                             }
                                             else if(scoreCount == 3){
@@ -891,7 +1234,30 @@ public class TileGame extends AppCompatActivity {
                                                             mediaPlayer.start();
                                                             break;
                                                         }
+
+                                                        case  3:{
+
+                                                            final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
+                                                            View mView = getLayoutInflater().inflate(R.layout.instruction_four, null);
+
+                                                            mBuilder.setView(mView);
+                                                            final AlertDialog dialog = mBuilder.create();
+                                                            dialog.show();
+
+                                                            final Handler handler = new Handler();
+                                                            handler.postDelayed(new Runnable() {
+                                                                @Override
+                                                                public void run() {
+                                                                    dialog.dismiss();
+
+                                                                }
+                                                            }, 3000);
+
+                                                            break;
+
+                                                        }
                                                     }
+
                                                 }
                                             }
                                             score_textview.setText("Score: " + Integer.toString(scoreCount));
@@ -948,6 +1314,30 @@ public class TileGame extends AppCompatActivity {
 
                             break;
                         }
+                        case 3:{
+
+                            if(clickNumber == 0) {
+                                final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
+                                View mView = getLayoutInflater().inflate(R.layout.instruction_two, null);
+
+                                mBuilder.setView(mView);
+                                final AlertDialog dialog = mBuilder.create();
+                                dialog.show();
+
+                                final Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        dialog.dismiss();
+
+                                    }
+                                }, 3000);
+
+                                clickNumber++;
+                            }
+                            break;
+                        }
+
                     }
                 }
 
@@ -992,6 +1382,28 @@ public class TileGame extends AppCompatActivity {
                                                         clickNumber++;
                                                         break;
                                                     }
+                                                    case 3:{
+
+                                                        final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
+                                                        View mView = getLayoutInflater().inflate(R.layout.instruction_three, null);
+
+                                                        mBuilder.setView(mView);
+                                                        final AlertDialog dialog = mBuilder.create();
+                                                        dialog.show();
+
+                                                        final Handler handler = new Handler();
+                                                        handler.postDelayed(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                dialog.dismiss();
+
+                                                            }
+                                                        }, 3000);
+
+                                                        clickNumber++;
+                                                        break;
+
+                                                    }
                                                 }
                                             }
                                             else if(scoreCount == 3){
@@ -1010,6 +1422,27 @@ public class TileGame extends AppCompatActivity {
                                                             mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.tapendgamebutton);
                                                             mediaPlayer.start();
                                                             break;
+                                                        }
+                                                        case  3:{
+
+                                                            final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
+                                                            View mView = getLayoutInflater().inflate(R.layout.instruction_four, null);
+
+                                                            mBuilder.setView(mView);
+                                                            final AlertDialog dialog = mBuilder.create();
+                                                            dialog.show();
+
+                                                            final Handler handler = new Handler();
+                                                            handler.postDelayed(new Runnable() {
+                                                                @Override
+                                                                public void run() {
+                                                                    dialog.dismiss();
+
+                                                                }
+                                                            }, 3000);
+
+                                                            break;
+
                                                         }
                                                     }
                                                 }
