@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/splash_screen_image"
-        android:src="@drawable/try7"
+        android:src="@mipmap/try7"
 
    />
 

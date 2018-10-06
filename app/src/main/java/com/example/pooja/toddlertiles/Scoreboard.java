@@ -1,6 +1,7 @@
 package com.example.pooja.toddlertiles;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -17,10 +18,13 @@ import android.widget.TextView;
 
 public class Scoreboard extends AppCompatActivity {
 
-    private Button play_again_button;
+    private Button play_again_button, backto_menu_button;
     private TextView scorebox, timebox, messagebox, time_message, score_message;
 
     private MediaPlayer mediaPlayer = null;
+
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     private int score;
     private String time;
@@ -32,6 +36,9 @@ public class Scoreboard extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_scoreboard);
+
+        sharedPreferences = getApplicationContext().getSharedPreferences("SharedPreference1" , MODE_PRIVATE);
+        editor = sharedPreferences.edit();
 
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#049da0"));
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
@@ -56,6 +63,7 @@ public class Scoreboard extends AppCompatActivity {
         }
 
         play_again_button = findViewById(R.id.play_again_button);
+        backto_menu_button = findViewById(R.id.backto_menu_button);
 
         Typeface face = Typeface.createFromAsset(getAssets(),
                 "fonts/MouseMemoirs-Regular.ttf");
@@ -66,6 +74,7 @@ public class Scoreboard extends AppCompatActivity {
         time_message.setTypeface(face);
         score_message.setTypeface(face);
         play_again_button.setTypeface(face);
+        backto_menu_button.setTypeface(face);
 
         play_again_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,5 +91,20 @@ public class Scoreboard extends AppCompatActivity {
             }
         });
 
+        backto_menu_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //clearing all data from sharedprefernce1 as it is not needed anymore
+                editor.clear();
+                editor.commit();
+
+                Intent intent = new Intent(getApplicationContext(), PromptTechnique.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
+
 }

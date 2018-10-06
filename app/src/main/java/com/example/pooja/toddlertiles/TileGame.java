@@ -167,7 +167,7 @@ public class TileGame extends AppCompatActivity {
         });
 
 
-        toggle.setChecked(sharedPreferences.getBoolean("toggleButton" , false));
+        toggle.setChecked(sharedPreferences.getBoolean("toggleButton" , true));
 
 
         start_button.setOnClickListener(new View.OnClickListener() {
@@ -199,6 +199,11 @@ public class TileGame extends AppCompatActivity {
                         case 4: {
                             mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.taponbabytile);
                             mediaPlayer.start();
+
+                            //timer starts now
+                            timer.setBase(SystemClock.elapsedRealtime());
+                            timer.start();
+                            isTimerRunning = true;
                             break;
                         }
                         case 2:{
@@ -219,6 +224,11 @@ public class TileGame extends AppCompatActivity {
                                     //close the dialog box
                                     dialog.dismiss();
 
+                                    //timer starts now
+                                    timer.setBase(SystemClock.elapsedRealtime());
+                                    timer.start();
+                                    isTimerRunning = true;
+
                                 }
                             });
 
@@ -226,14 +236,17 @@ public class TileGame extends AppCompatActivity {
 
 
                     }
+
                 }
-
-
-                else {
+                else{
+                    //the timer starts
                     timer.setBase(SystemClock.elapsedRealtime());
                     timer.start();
                     isTimerRunning = true;
                 }
+
+
+
             }
         });
 
@@ -1037,5 +1050,6 @@ public class TileGame extends AppCompatActivity {
         });
 
     }
+
 
 }

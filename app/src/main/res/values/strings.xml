@@ -5,4 +5,6 @@
     <string name="time_taken">Time Taken: </string>
     <string name="end_game_button">End Game</string>
     <string name="instructions">Instructions</string>
+    <string name="play_again">Play \nAgain</string>
+    <string name="back_to_menu">Back to\nMenu</string>
 </resources>
