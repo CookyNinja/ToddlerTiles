@@ -108,12 +108,28 @@ public class PromptTechnique extends AppCompatActivity {
         finish();
     }
 
+    //to check if app is on foreground
     public boolean foregrounded() {
         ActivityManager.RunningAppProcessInfo appProcessInfo = new ActivityManager.RunningAppProcessInfo();
         ActivityManager.getMyMemoryState(appProcessInfo);
         return (appProcessInfo.importance == IMPORTANCE_FOREGROUND || appProcessInfo.importance == IMPORTANCE_VISIBLE);
     }
 
+    @Override
+    protected void onResume() {
+        //starts the background music
+        startService(new Intent(PromptTechnique.this, SoundService.class));
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        if (!this.isFinishing()){
+            //stops the background music
+            stopService(new Intent(PromptTechnique.this, SoundService.class));
+        }
+        super.onPause();
+    }
 
     @Override
     protected void onDestroy() {

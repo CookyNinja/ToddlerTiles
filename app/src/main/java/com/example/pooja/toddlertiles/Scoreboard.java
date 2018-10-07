@@ -71,6 +71,8 @@ public class Scoreboard extends AppCompatActivity {
         play_again_button = findViewById(R.id.play_again_button);
         backto_menu_button = findViewById(R.id.backto_menu_button);
 
+
+        //setting font here
         Typeface face = Typeface.createFromAsset(getAssets(),
                 "fonts/MouseMemoirs-Regular.ttf");
 
@@ -103,20 +105,37 @@ public class Scoreboard extends AppCompatActivity {
 
                 //clearing all data from sharedprefernce1 as it is not needed anymore
                 editor.clear();
-                editor.commit();
+                editor.commit(); //commiting to save changes
 
                 Intent intent = new Intent(getApplicationContext(), PromptTechnique.class);
                 startActivity(intent);
                 finish();
             }
         });
-
     }
 
+    //to check if app is on foreground
     public boolean foregrounded() {
         ActivityManager.RunningAppProcessInfo appProcessInfo = new ActivityManager.RunningAppProcessInfo();
         ActivityManager.getMyMemoryState(appProcessInfo);
         return (appProcessInfo.importance == IMPORTANCE_FOREGROUND  ||  appProcessInfo.importance == IMPORTANCE_VISIBLE );
+    }
+
+    @Override
+    protected void onPause() {
+        if (!this.isFinishing()){
+            //stops the background music and service
+            stopService(new Intent(Scoreboard.this, SoundService.class));
+            if (mediaPlayer!= null) mediaPlayer.release();
+        }
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        //starts bg music when app returns to foreground
+        startService(new Intent(Scoreboard.this, SoundService.class));
+        super.onResume();
     }
 
 
@@ -125,8 +144,11 @@ public class Scoreboard extends AppCompatActivity {
         //stop service and stop music
         if(!foregrounded()){
             stopService(new Intent(Scoreboard.this, SoundService.class));
+            if (mediaPlayer!= null) mediaPlayer.release();
+
         }
         super.onDestroy();
+        if (mediaPlayer!= null) mediaPlayer.release();
     }
 
 }

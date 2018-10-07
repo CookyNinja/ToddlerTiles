@@ -20,8 +20,6 @@ public class SplashScreen extends AppCompatActivity {
 
         //start service and play music
         startService(new Intent(SplashScreen.this, SoundService.class));
-        //stopService(new Intent(SplashScreen.this, SoundService.class));
-
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
@@ -58,6 +56,8 @@ public class SplashScreen extends AppCompatActivity {
 
     }
 
+
+    //to check if app is on foreground
     public boolean foregrounded() {
         ActivityManager.RunningAppProcessInfo appProcessInfo = new ActivityManager.RunningAppProcessInfo();
         ActivityManager.getMyMemoryState(appProcessInfo);

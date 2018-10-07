@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     >
 
 <LinearLayout
@@ -10,7 +11,6 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:gravity="center"
-    android:background="@drawable/game_background2"
     android:visibility="gone">
     <TextView
         android:id="@+id/display_after_tutorial"
@@ -33,14 +33,14 @@
     <VideoView
         android:id="@+id/tutorial_videoview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="470dp"
         />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_gravity="center">
+        android:gravity="center">
 
     <Button
         android:id="@+id/play_again_button"
@@ -48,6 +48,8 @@
         android:layout_height="wrap_content"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
         android:layout_marginEnd="15dp"
         android:textColor="#ffffff"
         android:background="@drawable/roundcorner3"
@@ -59,6 +61,8 @@
         android:layout_height="wrap_content"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
         android:textColor="#ffffff"
         android:background="@drawable/roundcorner3"
         android:text="Close tutorial"/>

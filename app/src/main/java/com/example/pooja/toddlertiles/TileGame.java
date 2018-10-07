@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
-import android.widget.MediaController;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -63,28 +62,13 @@ public class TileGame extends AppCompatActivity {
     SharedPreferences.Editor editor;
 
 
-    private boolean isToggleChecked ;
+    private boolean isToggleChecked;
     private MediaPlayer mediaPlayer = null;
-    private  int promptTechnique;
+    private int promptTechnique;
 
     Handler mHandler;
 
     String tile_names[] = {"apple", "banana", "grapes", "mango", "kiwi", "pineapple", "strawberry", "pomegranate", "orange", "melon"};
-
-   /* @Override
-    public void onSaveInstanceState(Bundle outState) {
-        outState.putString("message", "This is my message to be reloaded");
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (savedInstanceState != null) {
-            String message = savedInstanceState.getString("message");
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-        }
-    }*/
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
@@ -99,7 +83,7 @@ public class TileGame extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_tile_game);
 
@@ -110,13 +94,12 @@ public class TileGame extends AppCompatActivity {
         mediaPlayer.start();
 
         //sharedPreference for promptTechnique variable and toggle button
-        sharedPreferences = getApplicationContext().getSharedPreferences("SharedPreference1" , MODE_PRIVATE);
+        sharedPreferences = getApplicationContext().getSharedPreferences("SharedPreference1", MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
 
-
         //if nothing stored, then returns default value 2, i.e. text instructions at the start
-        promptTechnique = sharedPreferences.getInt("promptTechnique" , 2) ;
+        promptTechnique = sharedPreferences.getInt("promptTechnique", 2);
 
         start_button = findViewById(R.id.start_button);
         instruction = findViewById(R.id.instruction);
@@ -127,14 +110,7 @@ public class TileGame extends AppCompatActivity {
         end_game_button = findViewById(R.id.end_game_button);
         timer = findViewById(R.id.timer);
 
-        /*if(savedInstanceState != null) {
-            promptTechnique = savedInstanceState.getInt("promptTechnique");
-            Toast.makeText(getApplicationContext(), "savedInstance", Toast.LENGTH_SHORT).show();
-        }else{
-            promptTechnique = getIntent().getIntExtra("promptTechnique", 1);
-            Toast.makeText(getApplicationContext(), "intentValue", Toast.LENGTH_SHORT).show();
-        }*/
-
+        //setting font here
         final Typeface face = Typeface.createFromAsset(getAssets(),
                 "fonts/MouseMemoirs-Regular.ttf");
         start_button.setTypeface(face);
@@ -157,16 +133,14 @@ public class TileGame extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    //isToggleChecked = true;
-                    editor.putBoolean("toggleButton" , true);
+                    editor.putBoolean("toggleButton", true);
                     editor.commit();
-                    isToggleChecked = sharedPreferences.getBoolean("toggleButton" , true);
+                    isToggleChecked = sharedPreferences.getBoolean("toggleButton", true);
                     //Toast.makeText(getApplicationContext(), "Instructions ON", Toast.LENGTH_SHORT).show();
                 } else {
-                    //isToggleChecked = false;
-                    editor.putBoolean("toggleButton" , false);
+                    editor.putBoolean("toggleButton", false);
                     editor.commit();
-                    isToggleChecked = sharedPreferences.getBoolean("toggleButton" , false);
+                    isToggleChecked = sharedPreferences.getBoolean("toggleButton", false);
                     //Toast.makeText(getApplicationContext(), "Instructions OFF", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -175,17 +149,19 @@ public class TileGame extends AppCompatActivity {
         });
 
 
-        toggle.setChecked(sharedPreferences.getBoolean("toggleButton" , true));
+        //setting toggle button based on the value present in sharedpreference
+        //by default it will be ON
+        toggle.setChecked(sharedPreferences.getBoolean("toggleButton", true));
 
 
         start_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    if(mediaPlayer.isPlaying()){
-                        mediaPlayer.stop();
-                    }
+                if (mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                }
 
-                    Log.d("Prompt_technique = " , promptTechnique + " ");
+                Log.d("Prompt_technique = ", promptTechnique + " ");
 
                 instruction_switch.setVisibility(View.GONE);
                 start_button.setVisibility(View.GONE);
@@ -202,9 +178,10 @@ public class TileGame extends AppCompatActivity {
                 end_game_button.setVisibility(View.VISIBLE);
                 timer.setVisibility(View.VISIBLE);
 
-                if(isToggleChecked){
-                    switch (promptTechnique){
+                if (isToggleChecked) {
+                    switch (promptTechnique) {
                         case 4: {
+                            //audio instructions on the fly
                             mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.taponbabytile);
                             mediaPlayer.start();
 
@@ -214,8 +191,9 @@ public class TileGame extends AppCompatActivity {
                             isTimerRunning = true;
                             break;
                         }
-                        case 2:{
+                        case 2: {
 
+                            //text instructions on start
                             //displays the dialog box of instructions
                             AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                             View mView = getLayoutInflater().inflate(R.layout.dialog_instructions, null);
@@ -223,6 +201,7 @@ public class TileGame extends AppCompatActivity {
                             Button close_button = mView.findViewById(R.id.close_button);
                             mBuilder.setView(mView);
                             final AlertDialog dialog = mBuilder.create();
+                            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                             dialog.show();
 
                             close_button.setOnClickListener(new View.OnClickListener() {
@@ -241,18 +220,20 @@ public class TileGame extends AppCompatActivity {
                             });
 
                             break;
-
                         }
 
-                        case 3:{
+                        case 3: {
 
+                            //text instructions on the fly
                             final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                             View mView = getLayoutInflater().inflate(R.layout.instruction_one, null);
 
                             mBuilder.setView(mView);
                             final AlertDialog dialog = mBuilder.create();
+                            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                             dialog.show();
 
+                            //waiting for 3 seconds and then closing dialog box
                             final Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
                                 @Override
@@ -268,7 +249,7 @@ public class TileGame extends AppCompatActivity {
                             break;
                         }
 
-                        case 1:{
+                        case 1: {
 
                             //displays video in a dialog box
                             AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
@@ -283,25 +264,32 @@ public class TileGame extends AppCompatActivity {
 
                             mBuilder.setView(mView);
                             final AlertDialog dialog = mBuilder.create();
+                            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                             dialog.show();
 
+                            //creating the videopath from raw folder
                             String videoPath = "android.resource://" + getPackageName() + "/" + R.raw.tutorial_video;
                             final Uri uri = Uri.parse(videoPath);
+
+                            //setting the path to the video view
                             tutorial_videoview.setVideoURI(uri);
-                            tutorial_videoview.setBackgroundColor(Color.WHITE);
+                            //tutorial_videoview.setBackgroundColor(Color.WHITE);
+
+                            //starting video automatically
                             tutorial_videoview.start();
 
-                            //MediaController mediaController = new MediaController(TileGame.this);
-                            //tutorial_videoview.setMediaController(mediaController);
-                            //mediaController.setAnchorView(tutorial_videoview);
                             tutorial_videoview.setZOrderOnTop(true);
 
                             play_again_button.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    if(tutorial_videoview.isPlaying()){
+                                    if (tutorial_videoview.isPlaying()) {
+
+                                        //stop if already playing
                                         tutorial_videoview.stopPlayback();
                                     }
+
+                                    //replay it by setting its path again
                                     tutorial_videoview.setVideoURI(uri);
                                     tutorial_videoview.start();
                                 }
@@ -311,12 +299,14 @@ public class TileGame extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view) {
 
+                                    //when closing the video dialog box
                                     tutorial_videoview.setVisibility(View.GONE);
                                     play_again_button.setVisibility(View.GONE);
                                     close_tutorial_button.setVisibility(View.GONE);
                                     display_after_tutorial.setVisibility(View.VISIBLE);
                                     linear_layout_for_message.setVisibility(View.VISIBLE);
 
+                                    //we dismiss the message after 2 seconds
                                     final Handler handler = new Handler();
                                     handler.postDelayed(new Runnable() {
                                         @Override
@@ -340,14 +330,12 @@ public class TileGame extends AppCompatActivity {
 
                     }
 
-                }
-                else{
-                    //the timer starts
+                } else {
+                    //the timer starts incase the instruction toggle was off
                     timer.setBase(SystemClock.elapsedRealtime());
                     timer.start();
                     isTimerRunning = true;
                 }
-
 
 
             }
@@ -357,15 +345,16 @@ public class TileGame extends AppCompatActivity {
         end_game_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mediaPlayer.isPlaying()){
+                if (mediaPlayer.isPlaying()) {
                     mediaPlayer.stop();
                 }
 
                 mediaPlayer.release();
 
-                if(isTimerRunning){
+                if (isTimerRunning) {
                     timer.stop();
-                    elapsedTime = SystemClock.elapsedRealtime() - timer.getBase();;
+                    elapsedTime = SystemClock.elapsedRealtime() - timer.getBase();
+                    ;
                     minutes = (elapsedTime / 1000) / 60;
                     seconds = (elapsedTime / 1000) % 60;
                 }
@@ -382,13 +371,13 @@ public class TileGame extends AppCompatActivity {
 
 
         List<Integer> randlist = new ArrayList<Integer>();
-        for (int i=0; i<tile_names.length; i++) {
+        for (int i = 0; i < tile_names.length; i++) {
             randlist.add(new Integer(i));
         }
         Collections.shuffle(randlist);
 
         int ar[] = new int[3];
-        for(int i = 0; i<3; i++){
+        for (int i = 0; i < 3; i++) {
             ar[i] = randlist.get(i);
         }
 
@@ -407,7 +396,7 @@ public class TileGame extends AppCompatActivity {
         list.add(tile6);
         Collections.shuffle(list);
 
-        Log.d("list elements", "onCreate: " + list.get(0) + " " + list.get(1) + " " + list.get(2) + " " + list.get(3) + " " + list.get(4) + " " + list.get(5)  );
+        Log.d("list elements", "onCreate: " + list.get(0) + " " + list.get(1) + " " + list.get(2) + " " + list.get(3) + " " + list.get(4) + " " + list.get(5));
 
         tile_medium1 = list.get(0);
         tile_medium2 = list.get(1);
@@ -423,14 +412,14 @@ public class TileGame extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(isToggleChecked){
-                    switch (promptTechnique){
-                        case 4:{
-                            if(mediaPlayer.isPlaying()){
+                if (isToggleChecked) {
+                    switch (promptTechnique) {
+                        case 4: {
+                            if (mediaPlayer.isPlaying()) {
                                 mediaPlayer.stop();
                             }
 
-                            if(clickNumber == 0){
+                            if (clickNumber == 0) {
                                 mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.taptofindsametile);
                                 mediaPlayer.start();
                                 clickNumber++;
@@ -438,14 +427,15 @@ public class TileGame extends AppCompatActivity {
 
                             break;
                         }
-                        case 3:{
+                        case 3: {
 
-                            if(clickNumber == 0) {
+                            if (clickNumber == 0) {
                                 final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                 View mView = getLayoutInflater().inflate(R.layout.instruction_two, null);
 
                                 mBuilder.setView(mView);
                                 final AlertDialog dialog = mBuilder.create();
+                                dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                 dialog.show();
 
                                 final Handler handler = new Handler();
@@ -491,28 +481,27 @@ public class TileGame extends AppCompatActivity {
                                     public void run() {
                                         // TODO Auto-generated method stub
 
-                                        if(onclick_previous == 0){
+                                        if (onclick_previous == 0) {
                                             //dont change the image on the button
-                                        }
-
-                                        else if(onclick_current == onclick_previous && previous_id!=current_id){
+                                        } else if (onclick_current == onclick_previous && previous_id != current_id) {
                                             //dont change image but increment score count
                                             scoreCount++;
-                                            if(scoreCount == 1 && clickNumber == 1){
-                                                switch (promptTechnique){
+                                            if (scoreCount == 1 && clickNumber == 1) {
+                                                switch (promptTechnique) {
                                                     case 4: {
                                                         mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.findothermatchingtiles);
                                                         mediaPlayer.start();
                                                         clickNumber++;
                                                         break;
                                                     }
-                                                    case 3:{
+                                                    case 3: {
 
                                                         final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                                         View mView = getLayoutInflater().inflate(R.layout.instruction_three, null);
 
                                                         mBuilder.setView(mView);
                                                         final AlertDialog dialog = mBuilder.create();
+                                                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                                         dialog.show();
 
                                                         final Handler handler = new Handler();
@@ -529,31 +518,32 @@ public class TileGame extends AppCompatActivity {
 
                                                     }
                                                 }
-                                            }
-                                            else if(scoreCount == 3){
+                                            } else if (scoreCount == 3) {
                                                 timer.stop();
                                                 isTimerRunning = false;
-                                                elapsedTime = SystemClock.elapsedRealtime() - timer.getBase();;
+                                                elapsedTime = SystemClock.elapsedRealtime() - timer.getBase();
+                                                ;
                                                 minutes = (elapsedTime / 1000) / 60;
                                                 seconds = (elapsedTime / 1000) % 60;
 
-                                                if(isToggleChecked){
-                                                    switch (promptTechnique){
+                                                if (isToggleChecked) {
+                                                    switch (promptTechnique) {
                                                         case 4: {
-                                                            if(mediaPlayer.isPlaying()){
+                                                            if (mediaPlayer.isPlaying()) {
                                                                 mediaPlayer.stop();
                                                             }
                                                             mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.tapendgamebutton);
                                                             mediaPlayer.start();
                                                             break;
                                                         }
-                                                        case 3:{
+                                                        case 3: {
 
                                                             final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                                             View mView = getLayoutInflater().inflate(R.layout.instruction_four, null);
 
                                                             mBuilder.setView(mView);
                                                             final AlertDialog dialog = mBuilder.create();
+                                                            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                                             dialog.show();
 
                                                             final Handler handler = new Handler();
@@ -580,12 +570,10 @@ public class TileGame extends AppCompatActivity {
                                             b2.setEnabled(false);
                                             current_id = 0;
                                             previous_id = 0;
-                                        }
-
-                                        else {
+                                        } else {
                                             onclick_current = 0;
                                             onclick_previous = 0;
-                                            ImageButton justlike1  =  findViewById(previous_id);
+                                            ImageButton justlike1 = findViewById(previous_id);
                                             justlike1.setImageResource(R.drawable.baby_tile);
                                             ImageButton justlike2 = findViewById(current_id);
                                             justlike2.setImageResource(R.drawable.baby_tile);
@@ -610,14 +598,14 @@ public class TileGame extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(isToggleChecked){
-                    switch (promptTechnique){
-                        case 4:{
-                            if(mediaPlayer.isPlaying()){
+                if (isToggleChecked) {
+                    switch (promptTechnique) {
+                        case 4: {
+                            if (mediaPlayer.isPlaying()) {
                                 mediaPlayer.stop();
                             }
 
-                            if(clickNumber == 0){
+                            if (clickNumber == 0) {
                                 mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.taptofindsametile);
                                 mediaPlayer.start();
                                 clickNumber++;
@@ -625,14 +613,15 @@ public class TileGame extends AppCompatActivity {
 
                             break;
                         }
-                        case 3:{
+                        case 3: {
 
-                            if(clickNumber == 0) {
+                            if (clickNumber == 0) {
                                 final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                 View mView = getLayoutInflater().inflate(R.layout.instruction_two, null);
 
                                 mBuilder.setView(mView);
                                 final AlertDialog dialog = mBuilder.create();
+                                dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                 dialog.show();
 
                                 final Handler handler = new Handler();
@@ -677,28 +666,27 @@ public class TileGame extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         // TODO Auto-generated method stub
-                                        if(onclick_previous == 0){
+                                        if (onclick_previous == 0) {
                                             //dont change the image on the button
-                                        }
-
-                                        else if(onclick_current == onclick_previous && previous_id!=current_id){
+                                        } else if (onclick_current == onclick_previous && previous_id != current_id) {
                                             //dont change image but increment score count
                                             scoreCount++;
-                                            if(scoreCount == 1 && clickNumber == 1){
-                                                switch (promptTechnique){
+                                            if (scoreCount == 1 && clickNumber == 1) {
+                                                switch (promptTechnique) {
                                                     case 4: {
                                                         mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.findothermatchingtiles);
                                                         mediaPlayer.start();
                                                         clickNumber++;
                                                         break;
                                                     }
-                                                    case 3:{
+                                                    case 3: {
 
                                                         final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                                         View mView = getLayoutInflater().inflate(R.layout.instruction_three, null);
 
                                                         mBuilder.setView(mView);
                                                         final AlertDialog dialog = mBuilder.create();
+                                                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                                         dialog.show();
 
                                                         final Handler handler = new Handler();
@@ -716,18 +704,18 @@ public class TileGame extends AppCompatActivity {
 
                                                     }
                                                 }
-                                            }
-                                            else if(scoreCount == 3){
+                                            } else if (scoreCount == 3) {
                                                 timer.stop();
                                                 isTimerRunning = false;
-                                                elapsedTime = SystemClock.elapsedRealtime() - timer.getBase();;
+                                                elapsedTime = SystemClock.elapsedRealtime() - timer.getBase();
+                                                ;
                                                 minutes = (elapsedTime / 1000) / 60;
                                                 seconds = (elapsedTime / 1000) % 60;
 
-                                                if(isToggleChecked){
-                                                    switch (promptTechnique){
+                                                if (isToggleChecked) {
+                                                    switch (promptTechnique) {
                                                         case 4: {
-                                                            if(mediaPlayer.isPlaying()){
+                                                            if (mediaPlayer.isPlaying()) {
                                                                 mediaPlayer.stop();
                                                             }
                                                             mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.tapendgamebutton);
@@ -735,13 +723,14 @@ public class TileGame extends AppCompatActivity {
                                                             break;
                                                         }
 
-                                                        case  3:{
+                                                        case 3: {
 
                                                             final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                                             View mView = getLayoutInflater().inflate(R.layout.instruction_four, null);
 
                                                             mBuilder.setView(mView);
                                                             final AlertDialog dialog = mBuilder.create();
+                                                            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                                             dialog.show();
 
                                                             final Handler handler = new Handler();
@@ -768,12 +757,10 @@ public class TileGame extends AppCompatActivity {
                                             b2.setEnabled(false);
                                             current_id = 0;
                                             previous_id = 0;
-                                        }
-
-                                        else {
+                                        } else {
                                             onclick_current = 0;
                                             onclick_previous = 0;
-                                            ImageButton justlike1  =  findViewById(previous_id);
+                                            ImageButton justlike1 = findViewById(previous_id);
                                             justlike1.setImageResource(R.drawable.baby_tile);
                                             ImageButton justlike2 = findViewById(current_id);
                                             justlike2.setImageResource(R.drawable.baby_tile);
@@ -806,14 +793,14 @@ public class TileGame extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(isToggleChecked){
-                    switch (promptTechnique){
-                        case 4:{
-                            if(mediaPlayer.isPlaying()){
+                if (isToggleChecked) {
+                    switch (promptTechnique) {
+                        case 4: {
+                            if (mediaPlayer.isPlaying()) {
                                 mediaPlayer.stop();
                             }
 
-                            if(clickNumber == 0){
+                            if (clickNumber == 0) {
                                 mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.taptofindsametile);
                                 mediaPlayer.start();
                                 clickNumber++;
@@ -821,14 +808,15 @@ public class TileGame extends AppCompatActivity {
 
                             break;
                         }
-                        case 3:{
+                        case 3: {
 
-                            if(clickNumber == 0) {
+                            if (clickNumber == 0) {
                                 final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                 View mView = getLayoutInflater().inflate(R.layout.instruction_two, null);
 
                                 mBuilder.setView(mView);
                                 final AlertDialog dialog = mBuilder.create();
+                                dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                 dialog.show();
 
                                 final Handler handler = new Handler();
@@ -873,28 +861,27 @@ public class TileGame extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         // TODO Auto-generated method stub
-                                        if(onclick_previous == 0){
+                                        if (onclick_previous == 0) {
                                             //dont change the image on the button
-                                        }
-
-                                        else if(onclick_current == onclick_previous && previous_id!=current_id){
+                                        } else if (onclick_current == onclick_previous && previous_id != current_id) {
                                             //dont change image but increment score count
                                             scoreCount++;
-                                            if(scoreCount == 1 && clickNumber == 1){
-                                                switch (promptTechnique){
+                                            if (scoreCount == 1 && clickNumber == 1) {
+                                                switch (promptTechnique) {
                                                     case 4: {
                                                         mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.findothermatchingtiles);
                                                         mediaPlayer.start();
                                                         clickNumber++;
                                                         break;
                                                     }
-                                                    case 3:{
+                                                    case 3: {
 
                                                         final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                                         View mView = getLayoutInflater().inflate(R.layout.instruction_three, null);
 
                                                         mBuilder.setView(mView);
                                                         final AlertDialog dialog = mBuilder.create();
+                                                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                                         dialog.show();
 
                                                         final Handler handler = new Handler();
@@ -911,31 +898,32 @@ public class TileGame extends AppCompatActivity {
 
                                                     }
                                                 }
-                                            }
-                                            else if(scoreCount == 3){
+                                            } else if (scoreCount == 3) {
                                                 timer.stop();
                                                 isTimerRunning = false;
-                                                elapsedTime = SystemClock.elapsedRealtime() - timer.getBase();;
+                                                elapsedTime = SystemClock.elapsedRealtime() - timer.getBase();
+                                                ;
                                                 minutes = (elapsedTime / 1000) / 60;
                                                 seconds = (elapsedTime / 1000) % 60;
 
-                                                if(isToggleChecked){
-                                                    switch (promptTechnique){
+                                                if (isToggleChecked) {
+                                                    switch (promptTechnique) {
                                                         case 4: {
-                                                            if(mediaPlayer.isPlaying()){
+                                                            if (mediaPlayer.isPlaying()) {
                                                                 mediaPlayer.stop();
                                                             }
                                                             mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.tapendgamebutton);
                                                             mediaPlayer.start();
                                                             break;
                                                         }
-                                                        case  3:{
+                                                        case 3: {
 
                                                             final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                                             View mView = getLayoutInflater().inflate(R.layout.instruction_four, null);
 
                                                             mBuilder.setView(mView);
                                                             final AlertDialog dialog = mBuilder.create();
+                                                            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                                             dialog.show();
 
                                                             final Handler handler = new Handler();
@@ -962,12 +950,10 @@ public class TileGame extends AppCompatActivity {
                                             b2.setEnabled(false);
                                             current_id = 0;
                                             previous_id = 0;
-                                        }
-
-                                        else {
+                                        } else {
                                             onclick_current = 0;
                                             onclick_previous = 0;
-                                            ImageButton justlike1  =  findViewById(previous_id);
+                                            ImageButton justlike1 = findViewById(previous_id);
                                             justlike1.setImageResource(R.drawable.baby_tile);
                                             ImageButton justlike2 = findViewById(current_id);
                                             justlike2.setImageResource(R.drawable.baby_tile);
@@ -992,14 +978,14 @@ public class TileGame extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(isToggleChecked){
-                    switch (promptTechnique){
-                        case 4:{
-                            if(mediaPlayer.isPlaying()){
+                if (isToggleChecked) {
+                    switch (promptTechnique) {
+                        case 4: {
+                            if (mediaPlayer.isPlaying()) {
                                 mediaPlayer.stop();
                             }
 
-                            if(clickNumber == 0){
+                            if (clickNumber == 0) {
                                 mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.taptofindsametile);
                                 mediaPlayer.start();
                                 clickNumber++;
@@ -1007,14 +993,15 @@ public class TileGame extends AppCompatActivity {
 
                             break;
                         }
-                        case 3:{
+                        case 3: {
 
-                            if(clickNumber == 0) {
+                            if (clickNumber == 0) {
                                 final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                 View mView = getLayoutInflater().inflate(R.layout.instruction_two, null);
 
                                 mBuilder.setView(mView);
                                 final AlertDialog dialog = mBuilder.create();
+                                dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                 dialog.show();
 
                                 final Handler handler = new Handler();
@@ -1059,28 +1046,27 @@ public class TileGame extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         // TODO Auto-generated method stub
-                                        if(onclick_previous == 0){
+                                        if (onclick_previous == 0) {
                                             //dont change the image on the button
-                                        }
-
-                                        else if(onclick_current == onclick_previous && previous_id!=current_id){
+                                        } else if (onclick_current == onclick_previous && previous_id != current_id) {
                                             //dont change image but increment score count
                                             scoreCount++;
-                                            if(scoreCount == 1 && clickNumber == 1){
-                                                switch (promptTechnique){
+                                            if (scoreCount == 1 && clickNumber == 1) {
+                                                switch (promptTechnique) {
                                                     case 4: {
                                                         mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.findothermatchingtiles);
                                                         mediaPlayer.start();
                                                         clickNumber++;
                                                         break;
                                                     }
-                                                    case 3:{
+                                                    case 3: {
 
                                                         final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                                         View mView = getLayoutInflater().inflate(R.layout.instruction_three, null);
 
                                                         mBuilder.setView(mView);
                                                         final AlertDialog dialog = mBuilder.create();
+                                                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                                         dialog.show();
 
                                                         final Handler handler = new Handler();
@@ -1097,18 +1083,18 @@ public class TileGame extends AppCompatActivity {
 
                                                     }
                                                 }
-                                            }
-                                            else if(scoreCount == 3){
+                                            } else if (scoreCount == 3) {
                                                 timer.stop();
                                                 isTimerRunning = false;
-                                                elapsedTime = SystemClock.elapsedRealtime() - timer.getBase();;
+                                                elapsedTime = SystemClock.elapsedRealtime() - timer.getBase();
+                                                ;
                                                 minutes = (elapsedTime / 1000) / 60;
                                                 seconds = (elapsedTime / 1000) % 60;
 
-                                                if(isToggleChecked){
-                                                    switch (promptTechnique){
+                                                if (isToggleChecked) {
+                                                    switch (promptTechnique) {
                                                         case 4: {
-                                                            if(mediaPlayer.isPlaying()){
+                                                            if (mediaPlayer.isPlaying()) {
                                                                 mediaPlayer.stop();
                                                             }
                                                             mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.tapendgamebutton);
@@ -1116,13 +1102,14 @@ public class TileGame extends AppCompatActivity {
                                                             break;
                                                         }
 
-                                                        case  3:{
+                                                        case 3: {
 
                                                             final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                                             View mView = getLayoutInflater().inflate(R.layout.instruction_four, null);
 
                                                             mBuilder.setView(mView);
                                                             final AlertDialog dialog = mBuilder.create();
+                                                            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                                             dialog.show();
 
                                                             final Handler handler = new Handler();
@@ -1149,12 +1136,10 @@ public class TileGame extends AppCompatActivity {
                                             b2.setEnabled(false);
                                             current_id = 0;
                                             previous_id = 0;
-                                        }
-
-                                        else {
+                                        } else {
                                             onclick_current = 0;
                                             onclick_previous = 0;
-                                            ImageButton justlike1  =  findViewById(previous_id);
+                                            ImageButton justlike1 = findViewById(previous_id);
                                             justlike1.setImageResource(R.drawable.baby_tile);
                                             ImageButton justlike2 = findViewById(current_id);
                                             justlike2.setImageResource(R.drawable.baby_tile);
@@ -1181,21 +1166,21 @@ public class TileGame extends AppCompatActivity {
 
         String random_value_3 = tile_names[ar[2]]; // generates a random tile
         drawableResourceId3 = this.getResources().getIdentifier(random_value_3, "drawable", this.getPackageName());
-        Log.d("drawableResourceId3" , Integer.toString(drawableResourceId3) );
+        Log.d("drawableResourceId3", Integer.toString(drawableResourceId3));
 
 
         tile_medium5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if(isToggleChecked){
-                    switch (promptTechnique){
-                        case 4:{
-                            if(mediaPlayer.isPlaying()){
+                if (isToggleChecked) {
+                    switch (promptTechnique) {
+                        case 4: {
+                            if (mediaPlayer.isPlaying()) {
                                 mediaPlayer.stop();
                             }
 
-                            if(clickNumber == 0){
+                            if (clickNumber == 0) {
                                 mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.taptofindsametile);
                                 mediaPlayer.start();
                                 clickNumber++;
@@ -1203,14 +1188,15 @@ public class TileGame extends AppCompatActivity {
 
                             break;
                         }
-                        case 3:{
+                        case 3: {
 
-                            if(clickNumber == 0) {
+                            if (clickNumber == 0) {
                                 final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                 View mView = getLayoutInflater().inflate(R.layout.instruction_two, null);
 
                                 mBuilder.setView(mView);
                                 final AlertDialog dialog = mBuilder.create();
+                                dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                 dialog.show();
 
                                 final Handler handler = new Handler();
@@ -1255,28 +1241,27 @@ public class TileGame extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         // TODO Auto-generated method stub
-                                        if(onclick_previous == 0){
+                                        if (onclick_previous == 0) {
                                             //dont change the image on the button
-                                        }
-
-                                        else if(onclick_current == onclick_previous && previous_id!=current_id){
+                                        } else if (onclick_current == onclick_previous && previous_id != current_id) {
                                             //dont change image but increment score count
                                             scoreCount++;
-                                            if(scoreCount == 1 && clickNumber == 1){
-                                                switch (promptTechnique){
+                                            if (scoreCount == 1 && clickNumber == 1) {
+                                                switch (promptTechnique) {
                                                     case 4: {
                                                         mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.findothermatchingtiles);
                                                         mediaPlayer.start();
                                                         clickNumber++;
                                                         break;
                                                     }
-                                                    case 3:{
+                                                    case 3: {
 
                                                         final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                                         View mView = getLayoutInflater().inflate(R.layout.instruction_three, null);
 
                                                         mBuilder.setView(mView);
                                                         final AlertDialog dialog = mBuilder.create();
+                                                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                                         dialog.show();
 
                                                         final Handler handler = new Handler();
@@ -1293,18 +1278,18 @@ public class TileGame extends AppCompatActivity {
 
                                                     }
                                                 }
-                                            }
-                                            else if(scoreCount == 3){
+                                            } else if (scoreCount == 3) {
                                                 timer.stop();
                                                 isTimerRunning = false;
-                                                elapsedTime = SystemClock.elapsedRealtime() - timer.getBase();;
+                                                elapsedTime = SystemClock.elapsedRealtime() - timer.getBase();
+                                                ;
                                                 minutes = (elapsedTime / 1000) / 60;
                                                 seconds = (elapsedTime / 1000) % 60;
 
-                                                if(isToggleChecked){
-                                                    switch (promptTechnique){
+                                                if (isToggleChecked) {
+                                                    switch (promptTechnique) {
                                                         case 4: {
-                                                            if(mediaPlayer.isPlaying()){
+                                                            if (mediaPlayer.isPlaying()) {
                                                                 mediaPlayer.stop();
                                                             }
                                                             mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.tapendgamebutton);
@@ -1312,13 +1297,14 @@ public class TileGame extends AppCompatActivity {
                                                             break;
                                                         }
 
-                                                        case  3:{
+                                                        case 3: {
 
                                                             final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                                             View mView = getLayoutInflater().inflate(R.layout.instruction_four, null);
 
                                                             mBuilder.setView(mView);
                                                             final AlertDialog dialog = mBuilder.create();
+                                                            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                                             dialog.show();
 
                                                             final Handler handler = new Handler();
@@ -1346,13 +1332,11 @@ public class TileGame extends AppCompatActivity {
                                             b2.setEnabled(false);
                                             current_id = 0;
                                             previous_id = 0;
-                                        }
-
-                                        else {
+                                        } else {
 
                                             onclick_current = 0;
                                             onclick_previous = 0;
-                                            ImageButton justlike1  =  findViewById(previous_id);
+                                            ImageButton justlike1 = findViewById(previous_id);
                                             justlike1.setImageResource(R.drawable.baby_tile);
                                             ImageButton justlike2 = findViewById(current_id);
                                             justlike2.setImageResource(R.drawable.baby_tile);
@@ -1376,14 +1360,14 @@ public class TileGame extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(isToggleChecked){
-                    switch (promptTechnique){
-                        case 4:{
-                            if(mediaPlayer.isPlaying()){
+                if (isToggleChecked) {
+                    switch (promptTechnique) {
+                        case 4: {
+                            if (mediaPlayer.isPlaying()) {
                                 mediaPlayer.stop();
                             }
 
-                            if(clickNumber == 0){
+                            if (clickNumber == 0) {
                                 mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.taptofindsametile);
                                 mediaPlayer.start();
                                 clickNumber++;
@@ -1391,14 +1375,15 @@ public class TileGame extends AppCompatActivity {
 
                             break;
                         }
-                        case 3:{
+                        case 3: {
 
-                            if(clickNumber == 0) {
+                            if (clickNumber == 0) {
                                 final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                 View mView = getLayoutInflater().inflate(R.layout.instruction_two, null);
 
                                 mBuilder.setView(mView);
                                 final AlertDialog dialog = mBuilder.create();
+                                dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                 dialog.show();
 
                                 final Handler handler = new Handler();
@@ -1444,28 +1429,27 @@ public class TileGame extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         // TODO Auto-generated method stub
-                                        if(onclick_previous == 0){
+                                        if (onclick_previous == 0) {
                                             //dont change the image on the button
-                                        }
-
-                                        else if(onclick_current == onclick_previous && previous_id!=current_id){
+                                        } else if (onclick_current == onclick_previous && previous_id != current_id) {
                                             //dont change image but increment score count
                                             scoreCount++;
-                                            if(scoreCount == 1 && clickNumber == 1){
-                                                switch (promptTechnique){
+                                            if (scoreCount == 1 && clickNumber == 1) {
+                                                switch (promptTechnique) {
                                                     case 4: {
                                                         mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.findothermatchingtiles);
                                                         mediaPlayer.start();
                                                         clickNumber++;
                                                         break;
                                                     }
-                                                    case 3:{
+                                                    case 3: {
 
                                                         final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                                         View mView = getLayoutInflater().inflate(R.layout.instruction_three, null);
 
                                                         mBuilder.setView(mView);
                                                         final AlertDialog dialog = mBuilder.create();
+                                                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                                         dialog.show();
 
                                                         final Handler handler = new Handler();
@@ -1482,31 +1466,32 @@ public class TileGame extends AppCompatActivity {
 
                                                     }
                                                 }
-                                            }
-                                            else if(scoreCount == 3){
+                                            } else if (scoreCount == 3) {
                                                 timer.stop();
                                                 isTimerRunning = false;
-                                                elapsedTime = SystemClock.elapsedRealtime() - timer.getBase();;
+                                                elapsedTime = SystemClock.elapsedRealtime() - timer.getBase();
+                                                ;
                                                 minutes = (elapsedTime / 1000) / 60;
                                                 seconds = (elapsedTime / 1000) % 60;
 
-                                                if(isToggleChecked){
-                                                    switch (promptTechnique){
+                                                if (isToggleChecked) {
+                                                    switch (promptTechnique) {
                                                         case 4: {
-                                                            if(mediaPlayer.isPlaying()){
+                                                            if (mediaPlayer.isPlaying()) {
                                                                 mediaPlayer.stop();
                                                             }
                                                             mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.tapendgamebutton);
                                                             mediaPlayer.start();
                                                             break;
                                                         }
-                                                        case  3:{
+                                                        case 3: {
 
                                                             final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                                             View mView = getLayoutInflater().inflate(R.layout.instruction_four, null);
 
                                                             mBuilder.setView(mView);
                                                             final AlertDialog dialog = mBuilder.create();
+                                                            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                                             dialog.show();
 
                                                             final Handler handler = new Handler();
@@ -1534,12 +1519,10 @@ public class TileGame extends AppCompatActivity {
                                             current_id = 0;
                                             previous_id = 0;
 
-                                        }
-
-                                        else {
+                                        } else {
                                             onclick_current = 0;
                                             onclick_previous = 0;
-                                            ImageButton justlike1  =  findViewById(previous_id);
+                                            ImageButton justlike1 = findViewById(previous_id);
                                             justlike1.setImageResource(R.drawable.baby_tile);
                                             ImageButton justlike2 = findViewById(current_id);
                                             justlike2.setImageResource(R.drawable.baby_tile);
@@ -1561,21 +1544,41 @@ public class TileGame extends AppCompatActivity {
 
     }
 
+    //to check if app is on foreground
     public boolean foregrounded() {
         ActivityManager.RunningAppProcessInfo appProcessInfo = new ActivityManager.RunningAppProcessInfo();
         ActivityManager.getMyMemoryState(appProcessInfo);
         return (appProcessInfo.importance == IMPORTANCE_FOREGROUND || appProcessInfo.importance == IMPORTANCE_VISIBLE);
     }
 
+    @Override
+    protected void onResume() {
+        //starts music when app returns to foreground
+        startService(new Intent(TileGame.this, SoundService.class));
+        super.onResume();
+    }
 
+    @Override
+    protected void onPause() {
+        if (!this.isFinishing()) {
+            //stops service and bg music
+            stopService(new Intent(TileGame.this, SoundService.class));
+            if (mediaPlayer != null) mediaPlayer.release();
+
+        }
+        super.onPause();
+    }
 
     @Override
     protected void onDestroy() {
         //stop service and stop music
-        if(!foregrounded()){
+        if (!foregrounded()) {
             stopService(new Intent(TileGame.this, SoundService.class));
+            if (mediaPlayer != null) mediaPlayer.release();
         }
         super.onDestroy();
+        if (mediaPlayer != null) mediaPlayer.release();
+
     }
 
 
