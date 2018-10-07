@@ -1,5 +1,6 @@
 package com.example.pooja.toddlertiles;
 
+import android.app.ActivityManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -10,11 +11,16 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.StringDef;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+
+import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
+import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND_SERVICE;
+import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE;
 
 public class Scoreboard extends AppCompatActivity {
 
@@ -105,6 +111,22 @@ public class Scoreboard extends AppCompatActivity {
             }
         });
 
+    }
+
+    public boolean foregrounded() {
+        ActivityManager.RunningAppProcessInfo appProcessInfo = new ActivityManager.RunningAppProcessInfo();
+        ActivityManager.getMyMemoryState(appProcessInfo);
+        return (appProcessInfo.importance == IMPORTANCE_FOREGROUND  ||  appProcessInfo.importance == IMPORTANCE_VISIBLE );
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        //stop service and stop music
+        if(!foregrounded()){
+            stopService(new Intent(Scoreboard.this, SoundService.class));
+        }
+        super.onDestroy();
     }
 
 }

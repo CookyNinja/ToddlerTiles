@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+<LinearLayout
+    android:id="@+id/linear_layout_for_message"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:background="@drawable/game_background2"
+    android:visibility="gone">
+    <TextView
+        android:id="@+id/display_after_tutorial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Its your turn now :) \nAll the Best!!!"
+        android:background="@drawable/roundcorner3"
+        android:textColor="#ffffff"
+        android:padding="15dp"
+        android:fontFamily=""
+        android:gravity="center"
+        android:textSize="35sp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        />
+
+</LinearLayout>
+
+
+    <VideoView
+        android:id="@+id/tutorial_videoview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+
+    <Button
+        android:id="@+id/play_again_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:layout_marginEnd="15dp"
+        android:textColor="#ffffff"
+        android:background="@drawable/roundcorner3"
+        android:text="Play Again"/>
+
+    <Button
+        android:id="@+id/close_tutorial_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:textColor="#ffffff"
+        android:background="@drawable/roundcorner3"
+        android:text="Close tutorial"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

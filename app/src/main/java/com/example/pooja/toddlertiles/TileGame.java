@@ -1,14 +1,18 @@
 package com.example.pooja.toddlertiles;
 
 
+import android.app.ActivityManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
+import android.widget.MediaController;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.service.quicksettings.Tile;
 import android.support.annotation.IntegerRes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -25,12 +29,16 @@ import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+
+import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
+import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE;
 
 
 public class TileGame extends AppCompatActivity {
@@ -127,7 +135,7 @@ public class TileGame extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "intentValue", Toast.LENGTH_SHORT).show();
         }*/
 
-        Typeface face = Typeface.createFromAsset(getAssets(),
+        final Typeface face = Typeface.createFromAsset(getAssets(),
                 "fonts/MouseMemoirs-Regular.ttf");
         start_button.setTypeface(face);
         instruction.setTypeface(face);
@@ -256,6 +264,75 @@ public class TileGame extends AppCompatActivity {
                                     isTimerRunning = true;
                                 }
                             }, 3000);
+
+                            break;
+                        }
+
+                        case 1:{
+
+                            //displays video in a dialog box
+                            AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
+                            View mView = getLayoutInflater().inflate(R.layout.dialog_video_tutorial, null);
+
+                            final VideoView tutorial_videoview = mView.findViewById(R.id.tutorial_videoview);
+                            final Button close_tutorial_button = mView.findViewById(R.id.close_tutorial_button);
+                            final Button play_again_button = mView.findViewById(R.id.play_again_button);
+                            final TextView display_after_tutorial = mView.findViewById(R.id.display_after_tutorial);
+                            final LinearLayout linear_layout_for_message = mView.findViewById(R.id.linear_layout_for_message);
+                            display_after_tutorial.setTypeface(face);
+
+                            mBuilder.setView(mView);
+                            final AlertDialog dialog = mBuilder.create();
+                            dialog.show();
+
+                            String videoPath = "android.resource://" + getPackageName() + "/" + R.raw.tutorial_video;
+                            final Uri uri = Uri.parse(videoPath);
+                            tutorial_videoview.setVideoURI(uri);
+                            tutorial_videoview.setBackgroundColor(Color.WHITE);
+                            tutorial_videoview.start();
+
+                            //MediaController mediaController = new MediaController(TileGame.this);
+                            //tutorial_videoview.setMediaController(mediaController);
+                            //mediaController.setAnchorView(tutorial_videoview);
+                            tutorial_videoview.setZOrderOnTop(true);
+
+                            play_again_button.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    if(tutorial_videoview.isPlaying()){
+                                        tutorial_videoview.stopPlayback();
+                                    }
+                                    tutorial_videoview.setVideoURI(uri);
+                                    tutorial_videoview.start();
+                                }
+                            });
+
+                            close_tutorial_button.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+
+                                    tutorial_videoview.setVisibility(View.GONE);
+                                    play_again_button.setVisibility(View.GONE);
+                                    close_tutorial_button.setVisibility(View.GONE);
+                                    display_after_tutorial.setVisibility(View.VISIBLE);
+                                    linear_layout_for_message.setVisibility(View.VISIBLE);
+
+                                    final Handler handler = new Handler();
+                                    handler.postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            dialog.dismiss();
+                                            //timer starts now
+                                            timer.setBase(SystemClock.elapsedRealtime());
+                                            timer.start();
+                                            isTimerRunning = true;
+
+                                        }
+                                    }, 2000);
+
+                                }
+                            });
+
 
                             break;
                         }
@@ -1482,6 +1559,23 @@ public class TileGame extends AppCompatActivity {
             }
         });
 
+    }
+
+    public boolean foregrounded() {
+        ActivityManager.RunningAppProcessInfo appProcessInfo = new ActivityManager.RunningAppProcessInfo();
+        ActivityManager.getMyMemoryState(appProcessInfo);
+        return (appProcessInfo.importance == IMPORTANCE_FOREGROUND || appProcessInfo.importance == IMPORTANCE_VISIBLE);
+    }
+
+
+
+    @Override
+    protected void onDestroy() {
+        //stop service and stop music
+        if(!foregrounded()){
+            stopService(new Intent(TileGame.this, SoundService.class));
+        }
+        super.onDestroy();
     }
 
 

@@ -1,6 +1,7 @@
 package com.example.pooja.toddlertiles;
 
 import android.app.ActionBar;
+import android.app.ActivityManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -8,12 +9,16 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
+
+import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
+import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE;
 
 public class PromptTechnique extends AppCompatActivity {
 
@@ -101,6 +106,22 @@ public class PromptTechnique extends AppCompatActivity {
         //intent.putExtra("promptTechnique", sharedPreferences.getInt("promptTechnique" , 2));
         startActivity(intent);
         finish();
+    }
+
+    public boolean foregrounded() {
+        ActivityManager.RunningAppProcessInfo appProcessInfo = new ActivityManager.RunningAppProcessInfo();
+        ActivityManager.getMyMemoryState(appProcessInfo);
+        return (appProcessInfo.importance == IMPORTANCE_FOREGROUND || appProcessInfo.importance == IMPORTANCE_VISIBLE);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        //stop service and stop music
+        if(!foregrounded()){
+            stopService(new Intent(PromptTechnique.this, SoundService.class));
+        }
+        super.onDestroy();
     }
 
 
