@@ -1,6 +1,7 @@
 package com.example.pooja.toddlertiles;
 
 import android.app.ActivityManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -8,8 +9,11 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.StrictMode;
+import android.os.SystemClock;
 import android.support.annotation.StringDef;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +25,7 @@ import android.widget.TextView;
 import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
 import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND_SERVICE;
 import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE;
+import static com.example.pooja.toddlertiles.R.id.timer;
 
 public class Scoreboard extends AppCompatActivity {
 
@@ -34,6 +39,7 @@ public class Scoreboard extends AppCompatActivity {
 
     private int score;
     private String time;
+    private boolean isLovingIt = false, isNotAbleToUnderstand = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,12 +96,62 @@ public class Scoreboard extends AppCompatActivity {
 
                 if(mediaPlayer.isPlaying()){
                     mediaPlayer.stop();
+                    mediaPlayer.reset();
                 }
-                mediaPlayer.release();
 
-                Intent intent = new Intent(getApplicationContext(), TileGame.class);
-                startActivity(intent);
-                finish();
+
+                final String[] choice = {"Instructions weren't clear!", "Loved the Game :)"};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(Scoreboard.this);
+                builder.setTitle("Why would like to play again?");
+                builder.setSingleChoiceItems(choice, -1, new DialogInterface.OnClickListener() {
+
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // the user clicked on choice[which]
+                        if("Instructions weren't clear!".equals(choice[which])){
+                            isNotAbleToUnderstand = true;
+                            dialog.dismiss();
+                            Intent intent = new Intent(getApplicationContext(), TileGame.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else if("Loved the Game :)".equals(choice[which])){
+                            isLovingIt = true;
+                            dialog.dismiss();
+                            Intent intent = new Intent(getApplicationContext(), TileGame.class);
+                            startActivity(intent);
+                            finish();
+
+                        }
+                    }
+
+                });
+
+                builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                AlertDialog mDialog = builder.create();
+                mDialog.show();
+
+                /*//waiting for 3 seconds and then closing dialog box
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        //throw intent after done
+                        Intent intent = new Intent(getApplicationContext(), TileGame.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }, 7000);*/
+
+
             }
         });
 

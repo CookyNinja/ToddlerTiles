@@ -5,6 +5,7 @@ import android.app.ActivityManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -37,11 +38,20 @@ public class PromptTechnique extends AppCompatActivity {
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#f47485"));
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
 
+        Typeface face = Typeface.createFromAsset(getAssets(),
+                "fonts/Chandelle Display Demo.ttf");
+
         b1 = findViewById(R.id.b1);
         b2 = findViewById(R.id.b2);
         b3 = findViewById(R.id.b3);
         b4 = findViewById(R.id.b4);
         b5 = findViewById(R.id.b5);
+
+        b1.setTypeface(face);
+        b2.setTypeface(face);
+        b3.setTypeface(face);
+        b4.setTypeface(face);
+        b5.setTypeface(face);
 
         //creating sharedpreference for PromptTechnique Variable
         sharedPreferences = getApplicationContext().getSharedPreferences("SharedPreference1" , MODE_PRIVATE);
@@ -100,7 +110,7 @@ public class PromptTechnique extends AppCompatActivity {
     }
 
     public void pressButton(View view){
-        view.setBackgroundColor(Color.rgb(255, 201, 216));
+        //view.setBackgroundColor(Color.rgb(255, 201, 216));
         Intent intent = new Intent(this, TileGame.class);
         //if nothing stored, then returns default value 2, i.e. text instructions at the start
         //intent.putExtra("promptTechnique", sharedPreferences.getInt("promptTechnique" , 2));
