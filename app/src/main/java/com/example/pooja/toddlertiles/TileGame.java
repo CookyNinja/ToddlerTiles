@@ -1,11 +1,14 @@
 package com.example.pooja.toddlertiles;
 
 
+import android.animation.ValueAnimator;
 import android.app.ActivityManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -20,11 +23,15 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,6 +55,7 @@ public class TileGame extends AppCompatActivity {
     private LinearLayout instruction_switch;
     private ImageButton tile1, tile2, tile3, tile4, tile5, tile6, tile_medium1, tile_medium2, tile_medium3, tile_medium4, tile_medium5, tile_medium6;
     //private ImageButton[] all;
+    private ImageView handpointer, handpointer2, handpointerend;
     int drawableResourceId1, drawableResourceId2, drawableResourceId3;
     int onclick_previous = 0, onclick_current = 0, current_id = 0, previous_id = 0;
     int scoreCount = 0;
@@ -57,6 +65,8 @@ public class TileGame extends AppCompatActivity {
     private long minutes;
     private long seconds;
     private int clickNumber = 0;
+
+    ValueAnimator valueAnimator;
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -207,8 +217,7 @@ public class TileGame extends AppCompatActivity {
                             close_button.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-
-                                    //close the dialog box
+                                  //close the dialog box
                                     dialog.dismiss();
 
                                     //timer starts now
@@ -327,6 +336,48 @@ public class TileGame extends AppCompatActivity {
                             break;
                         }
 
+                        case 5: {
+
+                            int location[] = new int[2];
+                            tile2.getLocationInWindow(location);
+
+                            FrameLayout root = (FrameLayout)findViewById(R.id.my_frame_layout);
+                            handpointer = new ImageView(getApplicationContext());
+                            handpointer.setBackgroundResource(R.drawable.handpointer);
+
+                            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(500, 500);
+                            params.leftMargin = location[0]+100;
+                            params.topMargin  = location[1]-50;
+                            root.addView(handpointer, params);
+
+
+                            valueAnimator = ValueAnimator.ofFloat(50f, -50f);
+
+                            valueAnimator.setInterpolator(new AccelerateDecelerateInterpolator()); // increase the speed first and then decrease
+                            valueAnimator.setDuration(800);
+                            valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                                @Override
+                                public void onAnimationUpdate(ValueAnimator animation) {
+                                    float progress = (float) animation.getAnimatedValue();
+                                    handpointer.setTranslationY(progress);
+                                    handpointer.setTranslationX(progress);
+                                    // no need to use invalidate() as it is already present in             //the text view.
+                                }
+                            });
+                            valueAnimator.setRepeatCount(1);
+                            valueAnimator.start();
+
+                            //Toast.makeText(getApplicationContext(), Integer.toString(location[0]), Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplicationContext(), "COORDINATES", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplicationContext(), Integer.toString(location[1]), Toast.LENGTH_SHORT).show();
+
+                            //timer starts now
+                            timer.setBase(SystemClock.elapsedRealtime());
+                            timer.start();
+                            isTimerRunning = true;
+                            break;
+                        }
+
 
                     }
 
@@ -387,7 +438,7 @@ public class TileGame extends AppCompatActivity {
 
         //tile_medium = all[random.nextInt(all.length)];
 
-        ArrayList<ImageButton> list = new ArrayList<>();
+        final ArrayList<ImageButton> list = new ArrayList<>();
         list.add(tile1);
         list.add(tile2);
         list.add(tile3);
@@ -450,6 +501,9 @@ public class TileGame extends AppCompatActivity {
                                 clickNumber++;
                             }
                             break;
+                        }
+                        case 5: {
+                            handpointer.setVisibility(View.GONE);
                         }
 
                     }
@@ -558,6 +612,36 @@ public class TileGame extends AppCompatActivity {
                                                             break;
 
                                                         }
+                                                        case 5: {
+                                                            int location[] = new int[2];
+                                                            end_game_button.getLocationInWindow(location);
+
+                                                            FrameLayout root = (FrameLayout)findViewById(R.id.my_frame_layout);
+                                                            handpointerend = new ImageView(getApplicationContext());
+                                                            handpointerend.setBackgroundResource(R.drawable.handpointer);
+
+                                                            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(500, 500);
+                                                            params.leftMargin = location[0]+100;
+                                                            params.topMargin  = location[1]-50;
+                                                            root.addView(handpointerend, params);
+
+
+                                                            valueAnimator = ValueAnimator.ofFloat(50f, -50f);
+
+                                                            valueAnimator.setInterpolator(new AccelerateDecelerateInterpolator()); // increase the speed first and then decrease
+                                                            valueAnimator.setDuration(800);
+                                                            valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                                                                @Override
+                                                                public void onAnimationUpdate(ValueAnimator animation) {
+                                                                    float progress = (float) animation.getAnimatedValue();
+                                                                    handpointerend.setTranslationY(progress);
+                                                                    handpointerend.setTranslationX(progress);
+                                                                    // no need to use invalidate() as it is already present in             //the text view.
+                                                                }
+                                                            });
+                                                            valueAnimator.setRepeatCount(1);
+                                                            valueAnimator.start();
+                                                        }
                                                     }
                                                 }
                                             }
@@ -636,6 +720,58 @@ public class TileGame extends AppCompatActivity {
                                 clickNumber++;
                             }
                             break;
+                        }
+                        case 5: {
+                            handpointer.setVisibility(View.INVISIBLE);
+
+
+
+
+                                /*if(((BitmapDrawable)tile_medium2.getDrawable()).getBitmap() == ((BitmapDrawable)tile_medium1.getDrawable()).getBitmap()){tile2
+                                    tileToPoint = tile_medium1;
+                                    Toast.makeText(getApplicationContext(), "1", Toast.LENGTH_SHORT).show();
+                                }else if(((BitmapDrawable)tile_medium2.getDrawable()).getBitmap() == ((BitmapDrawable)tile_medium3.getDrawable()).getBitmap()){
+                                    tileToPoint = tile_medium3;
+                                    Toast.makeText(getApplicationContext(), "3", Toast.LENGTH_SHORT).show();
+                                }else if(((BitmapDrawable)tile_medium2.getDrawable()).getBitmap() == ((BitmapDrawable)tile_medium4.getDrawable()).getBitmap()){
+                                    tileToPoint = tile_medium4;
+                                    Toast.makeText(getApplicationContext(), "4", Toast.LENGTH_SHORT).show();
+                                }else if(((BitmapDrawable)tile_medium2.getDrawable()).getBitmap() == ((BitmapDrawable)tile_medium5.getDrawable()).getBitmap()){
+                                    tileToPoint = tile_medium5;
+                                    Toast.makeText(getApplicationContext(), "5", Toast.LENGTH_SHORT).show();
+                                }else if(((BitmapDrawable)tile_medium2.getDrawable()).getBitmap() == ((BitmapDrawable)tile_medium6.getDrawable()).getBitmap()){
+                                    tileToPoint = tile_medium6;
+                                    Toast.makeText(getApplicationContext(), "6", Toast.LENGTH_SHORT).show();
+                                }
+
+                                int location[] = new int[2];
+                                tileToPoint.getLocationInWindow(location);
+
+                                FrameLayout root = (FrameLayout)findViewById(R.id.my_frame_layout);
+                                handpointer2 = new ImageView(getApplicationContext());
+                                handpointer2.setBackgroundResource(R.drawable.handpointer);
+
+                                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(400, 400);
+                                params.leftMargin = location[0]+100;
+                                params.topMargin  = location[1]-50;
+                                root.addView(handpointer2, params);
+
+
+                                valueAnimator = ValueAnimator.ofFloat(50f, -50f);
+
+                                valueAnimator.setInterpolator(new AccelerateDecelerateInterpolator()); // increase the speed first and then decrease
+                                valueAnimator.setDuration(1000);
+                                valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                                    @Override
+                                    public void onAnimationUpdate(ValueAnimator animation) {
+                                        float progress = (float) animation.getAnimatedValue();
+                                        handpointer2.setTranslationY(progress);
+                                        handpointer2.setTranslationX(progress);
+                                        // no need to use invalidate() as it is already present in             //the text view.
+                                    }
+                                });
+                                valueAnimator.setRepeatCount(1);
+                                valueAnimator.start();*/
                         }
 
                     }
@@ -745,6 +881,36 @@ public class TileGame extends AppCompatActivity {
                                                             break;
 
                                                         }
+                                                        case 5: {
+                                                            int location[] = new int[2];
+                                                            end_game_button.getLocationInWindow(location);
+
+                                                            FrameLayout root = (FrameLayout)findViewById(R.id.my_frame_layout);
+                                                            handpointerend = new ImageView(getApplicationContext());
+                                                            handpointerend.setBackgroundResource(R.drawable.handpointer);
+
+                                                            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(500, 500);
+                                                            params.leftMargin = location[0]+100;
+                                                            params.topMargin  = location[1]-50;
+                                                            root.addView(handpointerend, params);
+
+
+                                                            valueAnimator = ValueAnimator.ofFloat(50f, -50f);
+
+                                                            valueAnimator.setInterpolator(new AccelerateDecelerateInterpolator()); // increase the speed first and then decrease
+                                                            valueAnimator.setDuration(800);
+                                                            valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                                                                @Override
+                                                                public void onAnimationUpdate(ValueAnimator animation) {
+                                                                    float progress = (float) animation.getAnimatedValue();
+                                                                    handpointerend.setTranslationY(progress);
+                                                                    handpointerend.setTranslationX(progress);
+                                                                    // no need to use invalidate() as it is already present in             //the text view.
+                                                                }
+                                                            });
+                                                            valueAnimator.setRepeatCount(1);
+                                                            valueAnimator.start();
+                                                        }
                                                     }
                                                 }
                                             }
@@ -831,6 +997,9 @@ public class TileGame extends AppCompatActivity {
                                 clickNumber++;
                             }
                             break;
+                        }
+                        case 5: {
+                           handpointer.setVisibility(View.GONE);
                         }
 
                     }
@@ -938,6 +1107,36 @@ public class TileGame extends AppCompatActivity {
                                                             break;
 
                                                         }
+                                                        case 5: {
+                                                            int location[] = new int[2];
+                                                            end_game_button.getLocationInWindow(location);
+
+                                                            FrameLayout root = (FrameLayout)findViewById(R.id.my_frame_layout);
+                                                            handpointerend = new ImageView(getApplicationContext());
+                                                            handpointerend.setBackgroundResource(R.drawable.handpointer);
+
+                                                            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(500, 500);
+                                                            params.leftMargin = location[0]+100;
+                                                            params.topMargin  = location[1]-50;
+                                                            root.addView(handpointerend, params);
+
+
+                                                            valueAnimator = ValueAnimator.ofFloat(50f, -50f);
+
+                                                            valueAnimator.setInterpolator(new AccelerateDecelerateInterpolator()); // increase the speed first and then decrease
+                                                            valueAnimator.setDuration(800);
+                                                            valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                                                                @Override
+                                                                public void onAnimationUpdate(ValueAnimator animation) {
+                                                                    float progress = (float) animation.getAnimatedValue();
+                                                                    handpointerend.setTranslationY(progress);
+                                                                    handpointerend.setTranslationX(progress);
+                                                                    // no need to use invalidate() as it is already present in             //the text view.
+                                                                }
+                                                            });
+                                                            valueAnimator.setRepeatCount(1);
+                                                            valueAnimator.start();
+                                                        }
                                                     }
                                                 }
                                             }
@@ -1016,6 +1215,9 @@ public class TileGame extends AppCompatActivity {
                                 clickNumber++;
                             }
                             break;
+                        }
+                        case 5: {
+                            handpointer.setVisibility(View.GONE);
                         }
 
                     }
@@ -1124,6 +1326,36 @@ public class TileGame extends AppCompatActivity {
                                                             break;
 
                                                         }
+                                                        case 5: {
+                                                            int location[] = new int[2];
+                                                            end_game_button.getLocationInWindow(location);
+
+                                                            FrameLayout root = (FrameLayout)findViewById(R.id.my_frame_layout);
+                                                            handpointerend = new ImageView(getApplicationContext());
+                                                            handpointerend.setBackgroundResource(R.drawable.handpointer);
+
+                                                            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(500, 500);
+                                                            params.leftMargin = location[0]+100;
+                                                            params.topMargin  = location[1]-50;
+                                                            root.addView(handpointerend, params);
+
+
+                                                            valueAnimator = ValueAnimator.ofFloat(50f, -50f);
+
+                                                            valueAnimator.setInterpolator(new AccelerateDecelerateInterpolator()); // increase the speed first and then decrease
+                                                            valueAnimator.setDuration(800);
+                                                            valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                                                                @Override
+                                                                public void onAnimationUpdate(ValueAnimator animation) {
+                                                                    float progress = (float) animation.getAnimatedValue();
+                                                                    handpointerend.setTranslationY(progress);
+                                                                    handpointerend.setTranslationX(progress);
+                                                                    // no need to use invalidate() as it is already present in             //the text view.
+                                                                }
+                                                            });
+                                                            valueAnimator.setRepeatCount(1);
+                                                            valueAnimator.start();
+                                                        }
                                                     }
                                                 }
                                             }
@@ -1211,6 +1443,9 @@ public class TileGame extends AppCompatActivity {
                                 clickNumber++;
                             }
                             break;
+                        }
+                        case 5: {
+                            handpointer.setVisibility(View.GONE);
                         }
 
                     }
@@ -1319,6 +1554,36 @@ public class TileGame extends AppCompatActivity {
                                                             break;
 
                                                         }
+                                                        case 5: {
+                                                            int location[] = new int[2];
+                                                            end_game_button.getLocationInWindow(location);
+
+                                                            FrameLayout root = (FrameLayout)findViewById(R.id.my_frame_layout);
+                                                            handpointerend = new ImageView(getApplicationContext());
+                                                            handpointerend.setBackgroundResource(R.drawable.handpointer);
+
+                                                            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(500, 500);
+                                                            params.leftMargin = location[0]+100;
+                                                            params.topMargin  = location[1]-50;
+                                                            root.addView(handpointerend, params);
+
+
+                                                            valueAnimator = ValueAnimator.ofFloat(50f, -50f);
+
+                                                            valueAnimator.setInterpolator(new AccelerateDecelerateInterpolator()); // increase the speed first and then decrease
+                                                            valueAnimator.setDuration(800);
+                                                            valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                                                                @Override
+                                                                public void onAnimationUpdate(ValueAnimator animation) {
+                                                                    float progress = (float) animation.getAnimatedValue();
+                                                                    handpointerend.setTranslationY(progress);
+                                                                    handpointerend.setTranslationX(progress);
+                                                                    // no need to use invalidate() as it is already present in             //the text view.
+                                                                }
+                                                            });
+                                                            valueAnimator.setRepeatCount(1);
+                                                            valueAnimator.start();
+                                                        }
                                                     }
 
                                                 }
@@ -1398,6 +1663,9 @@ public class TileGame extends AppCompatActivity {
                                 clickNumber++;
                             }
                             break;
+                        }
+                        case 5: {
+                            handpointer.setVisibility(View.GONE);
                         }
 
                     }
@@ -1505,6 +1773,36 @@ public class TileGame extends AppCompatActivity {
 
                                                             break;
 
+                                                        }
+                                                        case 5: {
+                                                            int location[] = new int[2];
+                                                            end_game_button.getLocationInWindow(location);
+
+                                                            FrameLayout root = (FrameLayout)findViewById(R.id.my_frame_layout);
+                                                            handpointerend = new ImageView(getApplicationContext());
+                                                            handpointerend.setBackgroundResource(R.drawable.handpointer);
+
+                                                            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(500, 500);
+                                                            params.leftMargin = location[0]+100;
+                                                            params.topMargin  = location[1]-50;
+                                                            root.addView(handpointerend, params);
+
+
+                                                            valueAnimator = ValueAnimator.ofFloat(50f, -50f);
+
+                                                            valueAnimator.setInterpolator(new AccelerateDecelerateInterpolator()); // increase the speed first and then decrease
+                                                            valueAnimator.setDuration(800);
+                                                            valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                                                                @Override
+                                                                public void onAnimationUpdate(ValueAnimator animation) {
+                                                                    float progress = (float) animation.getAnimatedValue();
+                                                                    handpointerend.setTranslationY(progress);
+                                                                    handpointerend.setTranslationX(progress);
+                                                                    // no need to use invalidate() as it is already present in             //the text view.
+                                                                }
+                                                            });
+                                                            valueAnimator.setRepeatCount(1);
+                                                            valueAnimator.start();
                                                         }
                                                     }
                                                 }
