@@ -21,6 +21,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
 import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND_SERVICE;
@@ -37,7 +38,7 @@ public class Scoreboard extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
-    private int score;
+    private int score, wrongTaps;
     private String time;
     private boolean isLovingIt = false, isNotAbleToUnderstand = false;
 
@@ -66,6 +67,7 @@ public class Scoreboard extends AppCompatActivity {
 
         score = getIntent().getIntExtra("score", 0);
         time = getIntent().getStringExtra("time");
+        wrongTaps = getIntent().getIntExtra("wrongTaps", 0);
         scorebox.setText(String.valueOf(score));
         timebox.setText(String.valueOf(time));
         if(score == 3){
@@ -73,6 +75,8 @@ public class Scoreboard extends AppCompatActivity {
         }else{
             messagebox.setText("Try again.");
         }
+
+        Toast.makeText(getApplicationContext(), "Wrong Taps: " + Integer.toString(wrongTaps), Toast.LENGTH_SHORT).show();
 
         play_again_button = findViewById(R.id.play_again_button);
         backto_menu_button = findViewById(R.id.backto_menu_button);

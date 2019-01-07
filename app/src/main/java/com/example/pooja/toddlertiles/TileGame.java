@@ -65,6 +65,7 @@ public class TileGame extends AppCompatActivity {
     private long minutes;
     private long seconds;
     private int clickNumber = 0;
+    private int wrongTaps = 0;
 
     ValueAnimator valueAnimator;
 
@@ -415,6 +416,7 @@ public class TileGame extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), Scoreboard.class);
                 intent.putExtra("score", scoreCount);
                 intent.putExtra("time", time);
+                intent.putExtra("wrongTaps", wrongTaps);
                 startActivity(intent);
                 finish();
             }
@@ -663,6 +665,7 @@ public class TileGame extends AppCompatActivity {
                                             justlike2.setImageResource(R.drawable.baby_tile);
                                             current_id = 0;
                                             previous_id = 0;
+                                            wrongTaps++;
 
                                         }
                                     }
@@ -932,6 +935,7 @@ public class TileGame extends AppCompatActivity {
                                             justlike2.setImageResource(R.drawable.baby_tile);
                                             current_id = 0;
                                             previous_id = 0;
+                                            wrongTaps++;
 
                                         }
                                     }
@@ -1158,6 +1162,7 @@ public class TileGame extends AppCompatActivity {
                                             justlike2.setImageResource(R.drawable.baby_tile);
                                             current_id = 0;
                                             previous_id = 0;
+                                            wrongTaps++;
 
                                         }
 
@@ -1377,6 +1382,7 @@ public class TileGame extends AppCompatActivity {
                                             justlike2.setImageResource(R.drawable.baby_tile);
                                             current_id = 0;
                                             previous_id = 0;
+                                            wrongTaps++;
 
                                         }
                                     }
@@ -1607,6 +1613,7 @@ public class TileGame extends AppCompatActivity {
                                             justlike2.setImageResource(R.drawable.baby_tile);
                                             current_id = 0;
                                             previous_id = 0;
+                                            wrongTaps++;
 
                                         }
                                     }
@@ -1826,6 +1833,7 @@ public class TileGame extends AppCompatActivity {
                                             justlike2.setImageResource(R.drawable.baby_tile);
                                             current_id = 0;
                                             previous_id = 0;
+                                            wrongTaps++;
 
                                         }
                                     }
