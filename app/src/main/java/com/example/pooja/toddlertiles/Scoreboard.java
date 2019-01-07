@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
 import android.os.SystemClock;
+import android.support.annotation.NonNull;
 import android.support.annotation.StringDef;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +23,12 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
 import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND_SERVICE;
@@ -41,6 +48,13 @@ public class Scoreboard extends AppCompatActivity {
     private int score, wrongTaps, promptTechnique;
     private String time;
     private boolean isLovingIt = false, isNotAbleToUnderstand = false;
+
+    // Firebase Database Variables
+    private DatabaseReference mRoot;
+    private DatabaseReference mRecords;
+    private DatabaseReference mId;
+    private DatabaseReference mPromptTechnique, mScore,  mTimeTaken, mWrongTaps;
+    public int numRecords;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +93,52 @@ public class Scoreboard extends AppCompatActivity {
 
         Toast.makeText(getApplicationContext(), "Wrong Taps: " + Integer.toString(wrongTaps), Toast.LENGTH_SHORT).show();
 
+        mRecords = FirebaseDatabase.getInstance().getReference().child("Records");
+
+        mRecords.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                numRecords = dataSnapshot.getValue(Integer.class);
+                mRecords.setValue(numRecords+1);
+                mRoot = FirebaseDatabase.getInstance().getReference();
+                mId = mRoot.child(Integer.toString(numRecords));
+                mPromptTechnique = mId.child("PromptTechnique");
+                mPromptTechnique.setValue(promptTechnique);
+                mScore = mId.child("Score");
+                mScore.setValue(score);
+                mTimeTaken = mId.child("TimeTaken");
+                mTimeTaken.setValue(time);
+                mWrongTaps = mId.child("WrongTaps");
+                mWrongTaps.setValue(wrongTaps);
+
+                Toast.makeText(getApplicationContext(), "Done", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("The read failed: ", "FAILED");
+            }
+        });
+
+
+        /*mRoot = FirebaseDatabase.getInstance().getReference();
+        mRecords = mRoot.child("Records");
+        int numRecords = mRecords.;
+        numRecords++;
+
+        mRecords.setValue(numRecords);
+
+        Toast.makeText(getApplicationContext(), Integer.toString(mRecords.hashCode()), Toast.LENGTH_SHORT).show();*/
+
+        /*mUserPhoneNumber.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()){
+                    mCount = mUserPhoneNumber.child("count");
+                    mCount.setValue(0);
+                }
+            }*/
+
         play_again_button = findViewById(R.id.play_again_button);
         backto_menu_button = findViewById(R.id.backto_menu_button);
 
@@ -108,7 +168,7 @@ public class Scoreboard extends AppCompatActivity {
                 final String[] choice = {"Instructions weren't clear!", "Loved the Game :)"};
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(Scoreboard.this);
-                builder.setTitle("Why would like to play again?");
+                builder.setTitle("Why would you like to play again?");
                 builder.setSingleChoiceItems(choice, -1, new DialogInterface.OnClickListener() {
 
 
