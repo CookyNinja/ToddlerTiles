@@ -417,6 +417,7 @@ public class TileGame extends AppCompatActivity {
                 intent.putExtra("score", scoreCount);
                 intent.putExtra("time", time);
                 intent.putExtra("wrongTaps", wrongTaps);
+                intent.putExtra("promptTechnique", promptTechnique);
                 startActivity(intent);
                 finish();
             }

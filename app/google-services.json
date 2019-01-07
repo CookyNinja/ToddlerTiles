@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "293460795571",
+    "firebase_url": "https://toddlertiles.firebaseio.com",
+    "project_id": "toddlertiles",
+    "storage_bucket": "toddlertiles.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:293460795571:android:79709bc462f9042e",
+        "android_client_info": {
+          "package_name": "com.example.pooja.toddlertiles"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "293460795571-r8miff8j8fk8uua3471lfpiofshksmeh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pooja.toddlertiles",
+            "certificate_hash": "66ada8149b2eb2adf8671451bed59a5716013286"
+          }
+        },
+        {
+          "client_id": "293460795571-n42ai0ihogg2vcjhqnsh6pe0uobfuoal.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmytf5gekUfT-Q6D1EDAFL7bNtsdp9cFs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "293460795571-n42ai0ihogg2vcjhqnsh6pe0uobfuoal.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

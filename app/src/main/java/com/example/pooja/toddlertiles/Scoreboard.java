@@ -38,7 +38,7 @@ public class Scoreboard extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
-    private int score, wrongTaps;
+    private int score, wrongTaps, promptTechnique;
     private String time;
     private boolean isLovingIt = false, isNotAbleToUnderstand = false;
 
@@ -68,6 +68,7 @@ public class Scoreboard extends AppCompatActivity {
         score = getIntent().getIntExtra("score", 0);
         time = getIntent().getStringExtra("time");
         wrongTaps = getIntent().getIntExtra("wrongTaps", 0);
+        promptTechnique = getIntent().getIntExtra("promptTechnique", 2);
         scorebox.setText(String.valueOf(score));
         timebox.setText(String.valueOf(time));
         if(score == 3){
