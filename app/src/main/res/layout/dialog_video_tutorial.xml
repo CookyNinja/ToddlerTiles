@@ -16,7 +16,7 @@
         android:id="@+id/display_after_tutorial"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Its your turn now :) \nAll the Best!!!"
+        android:text="It is your turn now :) \nAll the Best!!!"
         android:background="@drawable/roundcorner3"
         android:textColor="#ffffff"
         android:padding="15dp"

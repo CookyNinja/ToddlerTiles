@@ -256,7 +256,7 @@ public class TileGame extends AppCompatActivity {
                                     timer.start();
                                     isTimerRunning = true;
                                 }
-                            }, 3000);
+                            }, 10000);
 
                             break;
                         }
@@ -357,7 +357,7 @@ public class TileGame extends AppCompatActivity {
                             valueAnimator = ValueAnimator.ofFloat(50f, -50f);
 
                             valueAnimator.setInterpolator(new AccelerateDecelerateInterpolator()); // increase the speed first and then decrease
-                            valueAnimator.setDuration(800);
+                            valueAnimator.setDuration(500);
                             valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                 @Override
                                 public void onAnimationUpdate(ValueAnimator animation) {
@@ -501,7 +501,7 @@ public class TileGame extends AppCompatActivity {
                                         dialog.dismiss();
 
                                     }
-                                }, 3000);
+                                }, 15000);
 
                                 clickNumber++;
                             }
@@ -570,7 +570,7 @@ public class TileGame extends AppCompatActivity {
                                                                 dialog.dismiss();
 
                                                             }
-                                                        }, 3000);
+                                                        }, 15000);
 
                                                         clickNumber++;
                                                         break;
@@ -612,7 +612,7 @@ public class TileGame extends AppCompatActivity {
                                                                     dialog.dismiss();
 
                                                                 }
-                                                            }, 3000);
+                                                            }, 15000);
 
                                                             break;
 
@@ -721,63 +721,14 @@ public class TileGame extends AppCompatActivity {
                                         dialog.dismiss();
 
                                     }
-                                }, 3000);
+                                }, 15000);
 
                                 clickNumber++;
                             }
                             break;
                         }
                         case 5: {
-                            handpointer.setVisibility(View.INVISIBLE);
-
-
-
-
-                                /*if(((BitmapDrawable)tile_medium2.getDrawable()).getBitmap() == ((BitmapDrawable)tile_medium1.getDrawable()).getBitmap()){tile2
-                                    tileToPoint = tile_medium1;
-                                    Toast.makeText(getApplicationContext(), "1", Toast.LENGTH_SHORT).show();
-                                }else if(((BitmapDrawable)tile_medium2.getDrawable()).getBitmap() == ((BitmapDrawable)tile_medium3.getDrawable()).getBitmap()){
-                                    tileToPoint = tile_medium3;
-                                    Toast.makeText(getApplicationContext(), "3", Toast.LENGTH_SHORT).show();
-                                }else if(((BitmapDrawable)tile_medium2.getDrawable()).getBitmap() == ((BitmapDrawable)tile_medium4.getDrawable()).getBitmap()){
-                                    tileToPoint = tile_medium4;
-                                    Toast.makeText(getApplicationContext(), "4", Toast.LENGTH_SHORT).show();
-                                }else if(((BitmapDrawable)tile_medium2.getDrawable()).getBitmap() == ((BitmapDrawable)tile_medium5.getDrawable()).getBitmap()){
-                                    tileToPoint = tile_medium5;
-                                    Toast.makeText(getApplicationContext(), "5", Toast.LENGTH_SHORT).show();
-                                }else if(((BitmapDrawable)tile_medium2.getDrawable()).getBitmap() == ((BitmapDrawable)tile_medium6.getDrawable()).getBitmap()){
-                                    tileToPoint = tile_medium6;
-                                    Toast.makeText(getApplicationContext(), "6", Toast.LENGTH_SHORT).show();
-                                }
-
-                                int location[] = new int[2];
-                                tileToPoint.getLocationInWindow(location);
-
-                                FrameLayout root = (FrameLayout)findViewById(R.id.my_frame_layout);
-                                handpointer2 = new ImageView(getApplicationContext());
-                                handpointer2.setBackgroundResource(R.drawable.handpointer);
-
-                                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(400, 400);
-                                params.leftMargin = location[0]+100;
-                                params.topMargin  = location[1]-50;
-                                root.addView(handpointer2, params);
-
-
-                                valueAnimator = ValueAnimator.ofFloat(50f, -50f);
-
-                                valueAnimator.setInterpolator(new AccelerateDecelerateInterpolator()); // increase the speed first and then decrease
-                                valueAnimator.setDuration(1000);
-                                valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                                    @Override
-                                    public void onAnimationUpdate(ValueAnimator animation) {
-                                        float progress = (float) animation.getAnimatedValue();
-                                        handpointer2.setTranslationY(progress);
-                                        handpointer2.setTranslationX(progress);
-                                        // no need to use invalidate() as it is already present in             //the text view.
-                                    }
-                                });
-                                valueAnimator.setRepeatCount(1);
-                                valueAnimator.start();*/
+                            handpointer.setVisibility(View.GONE);
                         }
 
                     }
@@ -838,7 +789,7 @@ public class TileGame extends AppCompatActivity {
                                                                 dialog.dismiss();
 
                                                             }
-                                                        }, 3000);
+                                                        }, 15000);
 
                                                         clickNumber++;
 
@@ -882,7 +833,7 @@ public class TileGame extends AppCompatActivity {
                                                                     dialog.dismiss();
 
                                                                 }
-                                                            }, 3000);
+                                                            }, 15000);
 
                                                             break;
 
@@ -999,7 +950,7 @@ public class TileGame extends AppCompatActivity {
                                         dialog.dismiss();
 
                                     }
-                                }, 3000);
+                                }, 15000);
 
                                 clickNumber++;
                             }
@@ -1067,7 +1018,7 @@ public class TileGame extends AppCompatActivity {
                                                                 dialog.dismiss();
 
                                                             }
-                                                        }, 3000);
+                                                        }, 15000);
 
                                                         clickNumber++;
                                                         break;
@@ -1109,7 +1060,7 @@ public class TileGame extends AppCompatActivity {
                                                                     dialog.dismiss();
 
                                                                 }
-                                                            }, 3000);
+                                                            }, 15000);
 
                                                             break;
 
@@ -1218,7 +1169,7 @@ public class TileGame extends AppCompatActivity {
                                         dialog.dismiss();
 
                                     }
-                                }, 3000);
+                                }, 15000);
 
                                 clickNumber++;
                             }
@@ -1286,7 +1237,7 @@ public class TileGame extends AppCompatActivity {
                                                                 dialog.dismiss();
 
                                                             }
-                                                        }, 3000);
+                                                        }, 15000);
 
                                                         clickNumber++;
                                                         break;
@@ -1329,7 +1280,7 @@ public class TileGame extends AppCompatActivity {
                                                                     dialog.dismiss();
 
                                                                 }
-                                                            }, 3000);
+                                                            }, 15000);
 
                                                             break;
 
@@ -1447,7 +1398,7 @@ public class TileGame extends AppCompatActivity {
                                         dialog.dismiss();
 
                                     }
-                                }, 3000);
+                                }, 15000);
 
                                 clickNumber++;
                             }
@@ -1515,7 +1466,7 @@ public class TileGame extends AppCompatActivity {
                                                                 dialog.dismiss();
 
                                                             }
-                                                        }, 3000);
+                                                        }, 15000);
 
                                                         clickNumber++;
                                                         break;
@@ -1558,7 +1509,7 @@ public class TileGame extends AppCompatActivity {
                                                                     dialog.dismiss();
 
                                                                 }
-                                                            }, 3000);
+                                                            }, 15000);
 
                                                             break;
 
@@ -1668,7 +1619,7 @@ public class TileGame extends AppCompatActivity {
                                         dialog.dismiss();
 
                                     }
-                                }, 3000);
+                                }, 15000);
 
                                 clickNumber++;
                             }
@@ -1737,7 +1688,7 @@ public class TileGame extends AppCompatActivity {
                                                                 dialog.dismiss();
 
                                                             }
-                                                        }, 3000);
+                                                        }, 15000);
 
                                                         clickNumber++;
                                                         break;
@@ -1779,7 +1730,7 @@ public class TileGame extends AppCompatActivity {
                                                                     dialog.dismiss();
 
                                                                 }
-                                                            }, 3000);
+                                                            }, 10000);
 
                                                             break;
 

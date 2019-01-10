@@ -23,14 +23,14 @@
         android:textSize="18sp"
         android:textColor="#ffffff"
         android:background="@drawable/roundcorner3"
-        android:text="1. Tap on any of the six baby tiles to find out which fruit it is hiding \n2. Tap the tiles to find out which baby tile is hiding the same fruit\n3. If it's a match, then Congratulations!!! Continue to tap the baby tiles until all tiles have been matched "/>
+        android:text="1. Tap on any of the six baby tiles to find out which fruit it is hiding. \n2. Tap the other tiles to find out which baby tile is hiding the same fruit.\n3. Tap and match rest of the baby tiles. \n4. Tap the End Game button when you finish the game. "/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/close_button"
         android:layout_margin="10dp"
-        android:text="Okie!"
+        android:text="Okay!"
         android:textAllCaps="false"
         android:textStyle="bold"
         android:background="@drawable/roundcorner3"

@@ -13,7 +13,7 @@
         android:layout_margin="10dp"
         android:background="@drawable/roundcorner3"
         android:padding="20dp"
-        android:text="Yayy! You found your first match. \nNow try to find other tiles with matching fruits :)"
+        android:text="Yay! You found your first match. \n Tap and match rest of the baby tiles."
         android:textColor="#ffffff"
         android:textSize="18sp"
         android:gravity="center"

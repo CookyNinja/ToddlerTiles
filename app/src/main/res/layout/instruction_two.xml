@@ -13,7 +13,7 @@
         android:layout_margin="10dp"
         android:background="@drawable/roundcorner3"
         android:padding="20dp"
-        android:text="there is another tile hiding the same fruit and you have to find that tile by tapping on it"
+        android:text="Tap the other tiles to find out which baby tile is hiding the same fruit"
         android:textColor="#ffffff"
         android:textSize="18sp"
         android:gravity="center"

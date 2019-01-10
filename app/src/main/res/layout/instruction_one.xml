@@ -13,7 +13,7 @@
         android:layout_margin="10dp"
         android:background="@drawable/roundcorner3"
         android:padding="20dp"
-        android:text="tap on any of the six baby tiles to find out which fruit it is hiding"
+        android:text="Tap on any of the six baby tiles to find out which fruit it is hiding."
         android:textColor="#ffffff"
         android:textSize="18sp"
         android:gravity="center"

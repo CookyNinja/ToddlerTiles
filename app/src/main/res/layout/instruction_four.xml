@@ -13,7 +13,7 @@
         android:layout_margin="10dp"
         android:background="@drawable/roundcorner3"
         android:padding="20dp"
-        android:text="tap the end game button to see your final score"
+        android:text="Tap the End Game button when you finish the game."
         android:textColor="#ffffff"
         android:textSize="18sp"
         android:gravity="center"
