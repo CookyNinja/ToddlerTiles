@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "293460795571-u7eh3fa56jigk2upbf4djlv5hv4k4los.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pooja.toddlertiles",
+            "certificate_hash": "90b642a500d00889b78bd14e839ef80b530d81c7"
+          }
+        },
+        {
           "client_id": "293460795571-n42ai0ihogg2vcjhqnsh6pe0uobfuoal.apps.googleusercontent.com",
           "client_type": 3
         }

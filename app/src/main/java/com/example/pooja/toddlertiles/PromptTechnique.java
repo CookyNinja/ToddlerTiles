@@ -2,12 +2,14 @@ package com.example.pooja.toddlertiles;
 
 import android.app.ActionBar;
 import android.app.ActivityManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,6 +30,7 @@ public class PromptTechnique extends AppCompatActivity {
 
     //private int promptTechnique;
     private Button b1, b2, b3, b4, b5;
+    private String AgeCategory = "", Gender = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,90 @@ public class PromptTechnique extends AppCompatActivity {
         b3.setTypeface(face);
         b4.setTypeface(face);
         b5.setTypeface(face);
+
+
+// Male Female dialog
+
+        final String[] choice = {"Male", "Female"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(PromptTechnique.this);
+        builder.setTitle("Male or Female?");
+        builder.setSingleChoiceItems(choice, -1, new DialogInterface.OnClickListener() {
+
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // the user clicked on choice[which]
+                if("Male".equals(choice[which])){
+                    Gender = "Male";
+                    editor.putString("Gender" , Gender);
+                    editor.commit();
+                    dialog.dismiss();
+
+                }
+                else if("Female".equals(choice[which])){
+                    Gender = "Female";
+                    editor.putString("Gender" , Gender);
+                    editor.commit();
+                    dialog.dismiss();
+
+                }
+            }
+
+        });
+
+        builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+
+        AlertDialog mDialog = builder.create();
+        mDialog.show();
+
+
+        //Age category dialog
+
+        final String[] choice2 = {"4 to less than 7", "7 to less than 9"};
+
+        AlertDialog.Builder builder2 = new AlertDialog.Builder(PromptTechnique.this);
+        builder2.setTitle("Age Category: ");
+        builder2.setSingleChoiceItems(choice2, -1, new DialogInterface.OnClickListener() {
+
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // the user clicked on choice[which]
+                if("4 to less than 7".equals(choice2[which])){
+                    AgeCategory = "4 to <7";
+                    editor.putString("AgeCategory" , AgeCategory);
+                    editor.commit();
+                    dialog.dismiss();
+
+                }
+                else if("7 to less than 9".equals(choice2[which])){
+                    AgeCategory = "7 to <9";
+                    editor.putString("AgeCategory" , AgeCategory);
+                    editor.commit();
+                    dialog.dismiss();
+
+                }
+            }
+
+        });
+
+        builder2.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+
+        AlertDialog mDialog2 = builder2.create();
+        mDialog2.show();
+
+
 
         //creating sharedpreference for PromptTechnique Variable
         sharedPreferences = getApplicationContext().getSharedPreferences("SharedPreference1" , MODE_PRIVATE);

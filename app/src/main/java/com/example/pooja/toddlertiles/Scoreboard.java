@@ -47,13 +47,14 @@ public class Scoreboard extends AppCompatActivity {
 
     private int score, wrongTaps, promptTechnique;
     private String time;
+    private String agecat, gender;
     private boolean isLovingIt = false, isNotAbleToUnderstand = false;
 
     // Firebase Database Variables
     private DatabaseReference mRoot;
     private DatabaseReference mRecords;
     private DatabaseReference mId;
-    private DatabaseReference mPromptTechnique, mScore,  mTimeTaken, mWrongTaps;
+    private DatabaseReference mPromptTechnique, mScore,  mTimeTaken, mWrongTaps, mGender, mAgeCategory;
     public int numRecords;
 
     @Override
@@ -110,6 +111,12 @@ public class Scoreboard extends AppCompatActivity {
                 mTimeTaken.setValue(time);
                 mWrongTaps = mId.child("WrongTaps");
                 mWrongTaps.setValue(wrongTaps);
+                mAgeCategory = mId.child("Age Category");
+                agecat = sharedPreferences.getString("AgeCategory", null);
+                mAgeCategory.setValue(agecat);
+                mGender = mId.child("Gender");
+                gender = sharedPreferences.getString("Gender" , null);
+                mGender.setValue(gender);
 
                 Toast.makeText(getApplicationContext(), "Done", Toast.LENGTH_SHORT).show();
             }
