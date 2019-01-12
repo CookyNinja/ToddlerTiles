@@ -3,6 +3,7 @@ package com.example.pooja.toddlertiles;
 
 import android.animation.ValueAnimator;
 import android.app.ActivityManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -68,6 +69,8 @@ public class TileGame extends AppCompatActivity {
     private long seconds;
     private int clickNumber = 0;
     private int wrongTaps = 0;
+
+    long timeWhenStopped = 0;
 
     ValueAnimator valueAnimator;
 
@@ -245,16 +248,24 @@ public class TileGame extends AppCompatActivity {
                             dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                             dialog.show();
 
+                            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                @Override
+                                public void onDismiss(DialogInterface dialogInterface) {
+                                    //timer starts now
+                                    timer.setBase(SystemClock.elapsedRealtime());
+                                    timer.start();
+                                    isTimerRunning = true;
+                                }
+                            });
+
+
                             //waiting for 10 seconds and then closing dialog box
                             final Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
                                     dialog.dismiss();
-                                    //timer starts now
-                                    timer.setBase(SystemClock.elapsedRealtime());
-                                    timer.start();
-                                    isTimerRunning = true;
+
                                 }
                             }, 10000);
 
@@ -408,7 +419,6 @@ public class TileGame extends AppCompatActivity {
                 if (isTimerRunning) {
                     timer.stop();
                     elapsedTime = SystemClock.elapsedRealtime() - timer.getBase();
-                    ;
                     minutes = (elapsedTime / 1000) / 60;
                     seconds = (elapsedTime / 1000) % 60;
                 }
@@ -486,6 +496,11 @@ public class TileGame extends AppCompatActivity {
                         case 3: {
 
                             if (clickNumber == 0) {
+
+
+                                timeWhenStopped = timer.getBase() - SystemClock.elapsedRealtime();
+                                timer.stop();
+
                                 final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                 View mView = getLayoutInflater().inflate(R.layout.instruction_two, null);
 
@@ -493,6 +508,14 @@ public class TileGame extends AppCompatActivity {
                                 final AlertDialog dialog = mBuilder.create();
                                 dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                 dialog.show();
+
+                                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                    @Override
+                                    public void onDismiss(DialogInterface dialogInterface) {
+                                        timer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+                                        timer.start();
+                                    }
+                                });
 
                                 final Handler handler = new Handler();
                                 handler.postDelayed(new Runnable() {
@@ -502,6 +525,8 @@ public class TileGame extends AppCompatActivity {
 
                                     }
                                 }, 15000);
+
+
 
                                 clickNumber++;
                             }
@@ -555,6 +580,9 @@ public class TileGame extends AppCompatActivity {
                                                     }
                                                     case 3: {
 
+                                                        timeWhenStopped = timer.getBase() - SystemClock.elapsedRealtime();
+                                                        timer.stop();
+
                                                         final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                                         View mView = getLayoutInflater().inflate(R.layout.instruction_three, null);
 
@@ -562,6 +590,14 @@ public class TileGame extends AppCompatActivity {
                                                         final AlertDialog dialog = mBuilder.create();
                                                         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                                         dialog.show();
+
+                                                        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                                            @Override
+                                                            public void onDismiss(DialogInterface dialogInterface) {
+                                                                timer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+                                                                timer.start();
+                                                            }
+                                                        });
 
                                                         final Handler handler = new Handler();
                                                         handler.postDelayed(new Runnable() {
@@ -597,6 +633,9 @@ public class TileGame extends AppCompatActivity {
                                                         }
                                                         case 3: {
 
+                                                            timeWhenStopped = timer.getBase() - SystemClock.elapsedRealtime();
+                                                            timer.stop();
+
                                                             final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                                             View mView = getLayoutInflater().inflate(R.layout.instruction_four, null);
 
@@ -604,6 +643,14 @@ public class TileGame extends AppCompatActivity {
                                                             final AlertDialog dialog = mBuilder.create();
                                                             dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                                             dialog.show();
+
+                                                            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                                                @Override
+                                                                public void onDismiss(DialogInterface dialogInterface) {
+                                                                    timer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+                                                                    timer.start();
+                                                                }
+                                                            });
 
                                                             final Handler handler = new Handler();
                                                             handler.postDelayed(new Runnable() {
@@ -705,7 +752,12 @@ public class TileGame extends AppCompatActivity {
                         }
                         case 3: {
 
+
                             if (clickNumber == 0) {
+
+                                timeWhenStopped = timer.getBase() - SystemClock.elapsedRealtime();
+                                timer.stop();
+
                                 final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                 View mView = getLayoutInflater().inflate(R.layout.instruction_two, null);
 
@@ -714,11 +766,20 @@ public class TileGame extends AppCompatActivity {
                                 dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                 dialog.show();
 
+                                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                    @Override
+                                    public void onDismiss(DialogInterface dialogInterface) {
+                                        timer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+                                        timer.start();
+                                    }
+                                });
+
                                 final Handler handler = new Handler();
                                 handler.postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
                                         dialog.dismiss();
+
 
                                     }
                                 }, 15000);
@@ -774,6 +835,9 @@ public class TileGame extends AppCompatActivity {
                                                     }
                                                     case 3: {
 
+                                                        timeWhenStopped = timer.getBase() - SystemClock.elapsedRealtime();
+                                                        timer.stop();
+
                                                         final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                                         View mView = getLayoutInflater().inflate(R.layout.instruction_three, null);
 
@@ -781,6 +845,15 @@ public class TileGame extends AppCompatActivity {
                                                         final AlertDialog dialog = mBuilder.create();
                                                         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                                         dialog.show();
+
+                                                        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                                            @Override
+                                                            public void onDismiss(DialogInterface dialogInterface) {
+                                                                timer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+                                                                timer.start();
+                                                            }
+                                                        });
+
 
                                                         final Handler handler = new Handler();
                                                         handler.postDelayed(new Runnable() {
@@ -818,6 +891,9 @@ public class TileGame extends AppCompatActivity {
 
                                                         case 3: {
 
+                                                            timeWhenStopped = timer.getBase() - SystemClock.elapsedRealtime();
+                                                            timer.stop();
+
                                                             final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                                             View mView = getLayoutInflater().inflate(R.layout.instruction_four, null);
 
@@ -825,6 +901,14 @@ public class TileGame extends AppCompatActivity {
                                                             final AlertDialog dialog = mBuilder.create();
                                                             dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                                             dialog.show();
+
+                                                            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                                                @Override
+                                                                public void onDismiss(DialogInterface dialogInterface) {
+                                                                    timer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+                                                                    timer.start();
+                                                                }
+                                                            });
 
                                                             final Handler handler = new Handler();
                                                             handler.postDelayed(new Runnable() {
@@ -935,6 +1019,10 @@ public class TileGame extends AppCompatActivity {
                         case 3: {
 
                             if (clickNumber == 0) {
+
+                                timeWhenStopped = timer.getBase() - SystemClock.elapsedRealtime();
+                                timer.stop();
+
                                 final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                 View mView = getLayoutInflater().inflate(R.layout.instruction_two, null);
 
@@ -943,11 +1031,20 @@ public class TileGame extends AppCompatActivity {
                                 dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                 dialog.show();
 
+                                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                    @Override
+                                    public void onDismiss(DialogInterface dialogInterface) {
+                                        timer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+                                        timer.start();
+                                    }
+                                });
+
                                 final Handler handler = new Handler();
                                 handler.postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
                                         dialog.dismiss();
+
 
                                     }
                                 }, 15000);
@@ -1003,6 +1100,9 @@ public class TileGame extends AppCompatActivity {
                                                     }
                                                     case 3: {
 
+                                                        timeWhenStopped = timer.getBase() - SystemClock.elapsedRealtime();
+                                                        timer.stop();
+
                                                         final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                                         View mView = getLayoutInflater().inflate(R.layout.instruction_three, null);
 
@@ -1010,6 +1110,14 @@ public class TileGame extends AppCompatActivity {
                                                         final AlertDialog dialog = mBuilder.create();
                                                         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                                         dialog.show();
+
+                                                        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                                            @Override
+                                                            public void onDismiss(DialogInterface dialogInterface) {
+                                                                timer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+                                                                timer.start();
+                                                            }
+                                                        });
 
                                                         final Handler handler = new Handler();
                                                         handler.postDelayed(new Runnable() {
@@ -1045,6 +1153,9 @@ public class TileGame extends AppCompatActivity {
                                                         }
                                                         case 3: {
 
+                                                            timeWhenStopped = timer.getBase() - SystemClock.elapsedRealtime();
+                                                            timer.stop();
+
                                                             final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                                             View mView = getLayoutInflater().inflate(R.layout.instruction_four, null);
 
@@ -1052,6 +1163,14 @@ public class TileGame extends AppCompatActivity {
                                                             final AlertDialog dialog = mBuilder.create();
                                                             dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                                             dialog.show();
+
+                                                            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                                                @Override
+                                                                public void onDismiss(DialogInterface dialogInterface) {
+                                                                    timer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+                                                                    timer.start();
+                                                                }
+                                                            });
 
                                                             final Handler handler = new Handler();
                                                             handler.postDelayed(new Runnable() {
@@ -1154,6 +1273,10 @@ public class TileGame extends AppCompatActivity {
                         case 3: {
 
                             if (clickNumber == 0) {
+
+                                timeWhenStopped = timer.getBase() - SystemClock.elapsedRealtime();
+                                timer.stop();
+
                                 final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                 View mView = getLayoutInflater().inflate(R.layout.instruction_two, null);
 
@@ -1162,11 +1285,20 @@ public class TileGame extends AppCompatActivity {
                                 dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                 dialog.show();
 
+                                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                    @Override
+                                    public void onDismiss(DialogInterface dialogInterface) {
+                                        timer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+                                        timer.start();
+                                    }
+                                });
+
                                 final Handler handler = new Handler();
                                 handler.postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
                                         dialog.dismiss();
+
 
                                     }
                                 }, 15000);
@@ -1222,6 +1354,9 @@ public class TileGame extends AppCompatActivity {
                                                     }
                                                     case 3: {
 
+                                                        timeWhenStopped = timer.getBase() - SystemClock.elapsedRealtime();
+                                                        timer.stop();
+
                                                         final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                                         View mView = getLayoutInflater().inflate(R.layout.instruction_three, null);
 
@@ -1229,6 +1364,14 @@ public class TileGame extends AppCompatActivity {
                                                         final AlertDialog dialog = mBuilder.create();
                                                         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                                         dialog.show();
+
+                                                        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                                            @Override
+                                                            public void onDismiss(DialogInterface dialogInterface) {
+                                                                timer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+                                                                timer.start();
+                                                            }
+                                                        });
 
                                                         final Handler handler = new Handler();
                                                         handler.postDelayed(new Runnable() {
@@ -1265,6 +1408,9 @@ public class TileGame extends AppCompatActivity {
 
                                                         case 3: {
 
+                                                            timeWhenStopped = timer.getBase() - SystemClock.elapsedRealtime();
+                                                            timer.stop();
+
                                                             final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                                             View mView = getLayoutInflater().inflate(R.layout.instruction_four, null);
 
@@ -1272,6 +1418,14 @@ public class TileGame extends AppCompatActivity {
                                                             final AlertDialog dialog = mBuilder.create();
                                                             dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                                             dialog.show();
+
+                                                            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                                                @Override
+                                                                public void onDismiss(DialogInterface dialogInterface) {
+                                                                    timer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+                                                                    timer.start();
+                                                                }
+                                                            });
 
                                                             final Handler handler = new Handler();
                                                             handler.postDelayed(new Runnable() {
@@ -1383,6 +1537,10 @@ public class TileGame extends AppCompatActivity {
                         case 3: {
 
                             if (clickNumber == 0) {
+
+                                timeWhenStopped = timer.getBase() - SystemClock.elapsedRealtime();
+                                timer.stop();
+
                                 final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                 View mView = getLayoutInflater().inflate(R.layout.instruction_two, null);
 
@@ -1391,11 +1549,20 @@ public class TileGame extends AppCompatActivity {
                                 dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                 dialog.show();
 
+                                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                    @Override
+                                    public void onDismiss(DialogInterface dialogInterface) {
+                                        timer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+                                        timer.start();
+                                    }
+                                });
+
                                 final Handler handler = new Handler();
                                 handler.postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
                                         dialog.dismiss();
+
 
                                     }
                                 }, 15000);
@@ -1451,6 +1618,9 @@ public class TileGame extends AppCompatActivity {
                                                     }
                                                     case 3: {
 
+                                                        timeWhenStopped = timer.getBase() - SystemClock.elapsedRealtime();
+                                                        timer.stop();
+
                                                         final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                                         View mView = getLayoutInflater().inflate(R.layout.instruction_three, null);
 
@@ -1458,6 +1628,14 @@ public class TileGame extends AppCompatActivity {
                                                         final AlertDialog dialog = mBuilder.create();
                                                         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                                         dialog.show();
+
+                                                        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                                            @Override
+                                                            public void onDismiss(DialogInterface dialogInterface) {
+                                                                timer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+                                                                timer.start();
+                                                            }
+                                                        });
 
                                                         final Handler handler = new Handler();
                                                         handler.postDelayed(new Runnable() {
@@ -1494,6 +1672,9 @@ public class TileGame extends AppCompatActivity {
 
                                                         case 3: {
 
+                                                            timeWhenStopped = timer.getBase() - SystemClock.elapsedRealtime();
+                                                            timer.stop();
+
                                                             final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                                             View mView = getLayoutInflater().inflate(R.layout.instruction_four, null);
 
@@ -1501,6 +1682,14 @@ public class TileGame extends AppCompatActivity {
                                                             final AlertDialog dialog = mBuilder.create();
                                                             dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                                             dialog.show();
+
+                                                            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                                                @Override
+                                                                public void onDismiss(DialogInterface dialogInterface) {
+                                                                    timer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+                                                                    timer.start();
+                                                                }
+                                                            });
 
                                                             final Handler handler = new Handler();
                                                             handler.postDelayed(new Runnable() {
@@ -1604,6 +1793,10 @@ public class TileGame extends AppCompatActivity {
                         case 3: {
 
                             if (clickNumber == 0) {
+
+                                timeWhenStopped = timer.getBase() - SystemClock.elapsedRealtime();
+                                timer.stop();
+
                                 final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                 View mView = getLayoutInflater().inflate(R.layout.instruction_two, null);
 
@@ -1612,11 +1805,20 @@ public class TileGame extends AppCompatActivity {
                                 dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                 dialog.show();
 
+                                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                    @Override
+                                    public void onDismiss(DialogInterface dialogInterface) {
+                                        timer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+                                        timer.start();
+                                    }
+                                });
+
                                 final Handler handler = new Handler();
                                 handler.postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
                                         dialog.dismiss();
+
 
                                     }
                                 }, 15000);
@@ -1673,6 +1875,9 @@ public class TileGame extends AppCompatActivity {
                                                     }
                                                     case 3: {
 
+                                                        timeWhenStopped = timer.getBase() - SystemClock.elapsedRealtime();
+                                                        timer.stop();
+
                                                         final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                                         View mView = getLayoutInflater().inflate(R.layout.instruction_three, null);
 
@@ -1680,6 +1885,14 @@ public class TileGame extends AppCompatActivity {
                                                         final AlertDialog dialog = mBuilder.create();
                                                         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                                         dialog.show();
+
+                                                        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                                            @Override
+                                                            public void onDismiss(DialogInterface dialogInterface) {
+                                                                timer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+                                                                timer.start();
+                                                            }
+                                                        });
 
                                                         final Handler handler = new Handler();
                                                         handler.postDelayed(new Runnable() {
@@ -1715,6 +1928,9 @@ public class TileGame extends AppCompatActivity {
                                                         }
                                                         case 3: {
 
+                                                            timeWhenStopped = timer.getBase() - SystemClock.elapsedRealtime();
+                                                            timer.stop();
+
                                                             final AlertDialog.Builder mBuilder = new AlertDialog.Builder(TileGame.this);
                                                             View mView = getLayoutInflater().inflate(R.layout.instruction_four, null);
 
@@ -1722,6 +1938,14 @@ public class TileGame extends AppCompatActivity {
                                                             final AlertDialog dialog = mBuilder.create();
                                                             dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                                             dialog.show();
+
+                                                            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                                                @Override
+                                                                public void onDismiss(DialogInterface dialogInterface) {
+                                                                    timer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+                                                                    timer.start();
+                                                                }
+                                                            });
 
                                                             final Handler handler = new Handler();
                                                             handler.postDelayed(new Runnable() {
