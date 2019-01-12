@@ -53,7 +53,7 @@
         android:layout_marginEnd="15dp"
         android:textColor="#ffffff"
         android:background="@drawable/roundcorner3"
-        android:text="Play Again"/>
+        android:text="Play Tutorial"/>
 
     <Button
         android:id="@+id/close_tutorial_button"

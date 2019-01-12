@@ -291,7 +291,7 @@ public class TileGame extends AppCompatActivity {
                             dialog.show();
 
                             //creating the videopath from raw folder
-                            String videoPath = "android.resource://" + getPackageName() + "/" + R.raw.tutorial_video;
+                            String videoPath = "android.resource://" + getPackageName() + "/" + R.raw.video_demo;
                             final Uri uri = Uri.parse(videoPath);
 
                             //setting the path to the video view
