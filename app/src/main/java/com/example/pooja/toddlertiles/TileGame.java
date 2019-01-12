@@ -245,7 +245,7 @@ public class TileGame extends AppCompatActivity {
                             dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                             dialog.show();
 
-                            //waiting for 3 seconds and then closing dialog box
+                            //waiting for 10 seconds and then closing dialog box
                             final Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
                                 @Override
@@ -357,7 +357,7 @@ public class TileGame extends AppCompatActivity {
                             valueAnimator = ValueAnimator.ofFloat(50f, -50f);
 
                             valueAnimator.setInterpolator(new AccelerateDecelerateInterpolator()); // increase the speed first and then decrease
-                            valueAnimator.setDuration(500);
+                            valueAnimator.setDuration(600);
                             valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                 @Override
                                 public void onAnimationUpdate(ValueAnimator animation) {
@@ -415,7 +415,7 @@ public class TileGame extends AppCompatActivity {
 
                 String time = String.valueOf(minutes) + " : " + String.valueOf(seconds);
 
-                Intent intent = new Intent(getApplicationContext(), Scoreboard.class);
+                Intent intent = new Intent(getApplicationContext(), Rating.class);
                 intent.putExtra("score", scoreCount);
                 intent.putExtra("time", time);
                 intent.putExtra("wrongTaps", wrongTaps);

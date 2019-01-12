@@ -29,6 +29,9 @@
             android:name=".TileGame"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".Rating"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".Scoreboard"
             android:screenOrientation="portrait" />
 

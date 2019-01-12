@@ -46,6 +46,7 @@ public class Scoreboard extends AppCompatActivity {
     SharedPreferences.Editor editor;
 
     private int score, wrongTaps, promptTechnique;
+    private float rate;
     private String time;
     private String agecat, gender;
     private boolean isLovingIt = false, isNotAbleToUnderstand = false;
@@ -54,7 +55,7 @@ public class Scoreboard extends AppCompatActivity {
     private DatabaseReference mRoot;
     private DatabaseReference mRecords;
     private DatabaseReference mId;
-    private DatabaseReference mPromptTechnique, mScore,  mTimeTaken, mWrongTaps, mGender, mAgeCategory;
+    private DatabaseReference mPromptTechnique, mScore,  mTimeTaken, mWrongTaps, mGender, mAgeCategory, mRating;
     public int numRecords;
 
     @Override
@@ -84,6 +85,7 @@ public class Scoreboard extends AppCompatActivity {
         time = getIntent().getStringExtra("time");
         wrongTaps = getIntent().getIntExtra("wrongTaps", 0);
         promptTechnique = getIntent().getIntExtra("promptTechnique", 2);
+        rate = getIntent().getFloatExtra("rating", 0);
         scorebox.setText(String.valueOf(score));
         timebox.setText(String.valueOf(time));
         if(score == 3){
@@ -111,12 +113,14 @@ public class Scoreboard extends AppCompatActivity {
                 mTimeTaken.setValue(time);
                 mWrongTaps = mId.child("WrongTaps");
                 mWrongTaps.setValue(wrongTaps);
-                mAgeCategory = mId.child("Age Category");
+                mAgeCategory = mId.child("AgeCategory");
                 agecat = sharedPreferences.getString("AgeCategory", null);
                 mAgeCategory.setValue(agecat);
                 mGender = mId.child("Gender");
                 gender = sharedPreferences.getString("Gender" , null);
                 mGender.setValue(gender);
+                mRating = mId.child("Rating");
+                mRating.setValue(rate);
 
                 Toast.makeText(getApplicationContext(), "Done", Toast.LENGTH_SHORT).show();
             }
@@ -171,58 +175,9 @@ public class Scoreboard extends AppCompatActivity {
                     mediaPlayer.reset();
                 }
 
-
-                final String[] choice = {"Instructions weren't clear!", "Loved the Game :)"};
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(Scoreboard.this);
-                builder.setTitle("Why would you like to play again?");
-                builder.setSingleChoiceItems(choice, -1, new DialogInterface.OnClickListener() {
-
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // the user clicked on choice[which]
-                        if("Instructions weren't clear!".equals(choice[which])){
-                            isNotAbleToUnderstand = true;
-                            dialog.dismiss();
-                            Intent intent = new Intent(getApplicationContext(), TileGame.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                        else if("Loved the Game :)".equals(choice[which])){
-                            isLovingIt = true;
-                            dialog.dismiss();
-                            Intent intent = new Intent(getApplicationContext(), TileGame.class);
-                            startActivity(intent);
-                            finish();
-
-                        }
-                    }
-
-                });
-
-                builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                });
-
-                AlertDialog mDialog = builder.create();
-                mDialog.show();
-
-                /*//waiting for 3 seconds and then closing dialog box
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        //throw intent after done
-                        Intent intent = new Intent(getApplicationContext(), TileGame.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                }, 7000);*/
-
+                Intent intent = new Intent(getApplicationContext(), TileGame.class);
+                startActivity(intent);
+                finish();
 
             }
         });
