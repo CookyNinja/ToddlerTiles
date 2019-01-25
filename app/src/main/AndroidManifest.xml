@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.pooja.toddlertiles">
+    package="com.toddlertilesapp.pooja.toddlertiles">
 
     <application
         android:allowBackup="true"
@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SplashScreen"
+            android:name="com.toddlertilesapp.pooja.toddlertiles.SplashScreen"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
@@ -23,20 +23,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PromptTechnique"
+            android:name="com.toddlertilesapp.pooja.toddlertiles.PromptTechnique"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".TileGame"
+            android:name="com.toddlertilesapp.pooja.toddlertiles.TileGame"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Rating"
+            android:name="com.toddlertilesapp.pooja.toddlertiles.Rating"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Scoreboard"
+            android:name="com.toddlertilesapp.pooja.toddlertiles.Scoreboard"
             android:screenOrientation="portrait" />
 
         <service
-            android:name=".SoundService"
+            android:name="com.toddlertilesapp.pooja.toddlertiles.SoundService"
             android:enabled="true"/>
 
     </application>

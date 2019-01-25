@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/game_background2"
+    android:background="@drawable/game"
     android:orientation="vertical"
-    tools:context="com.example.pooja.toddlertiles.TileGame">
+    tools:context="com.toddlertilesapp.pooja.toddlertiles.TileGame">
 
     <FrameLayout
         android:layout_width="match_parent"
